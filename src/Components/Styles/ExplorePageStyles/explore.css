@@ -1,0 +1,42 @@
+.explorebtns {
+  text-decoration: none !important;
+  white-space: nowrap;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 15px;
+  font-weight: 700;
+  align-items: center;
+}
+.profilepic {
+  position: absolute;
+  left: 50%;
+  top: 90px;
+  transform: translate(-50%, 0);
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
+  border: 8px solid white;
+  object-fit: cover;
+}
+.card {
+  margin-top: 10px;
+}
+.formSelect {
+  /* width: 10px; */
+}
+.dropdownCategories {
+  background-color: white !important;
+  color: white !important;
+}
+.option {
+  width: 10px;
+}
+@media only screen and (max-width: 836px) {
+  .allbtns {
+    display: none;
+  }
+}
+@media only screen and (min-width: 836px) {
+  .explore-dropdown {
+    display: none;
+  }
+}

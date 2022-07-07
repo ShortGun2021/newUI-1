@@ -1,0 +1,12 @@
+.nft-banner{
+    height:15vh;background-color: #F0F0F0;margin:5% 10%;border-radius:10px
+}
+.banner-text{
+    margin-top:3vh; font-weight:700; font-size:120%
+}
+.banner-div{
+    margin-top:3vh
+}
+.banner-button{
+    background-color:#6739B7; font-weight:700
+}

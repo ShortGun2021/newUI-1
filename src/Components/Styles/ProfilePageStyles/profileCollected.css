@@ -1,0 +1,30 @@
+@media only screen and (min-width: 1061px) {
+  .sortBtns {
+    float: right;
+    flex-wrap: nowrap;
+  }
+}
+@media only screen and (max-width: 1060px) {
+  .sortBtns {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+@media only screen and (max-width: 430px) {
+  .searchInput {
+    width: 100%;
+    min-width: 160px;
+  }
+  .sortBtns {
+    width: 100%;
+    min-width: 160px;
+  }
+}
+@media only screen and (min-width: 430px) {
+  .searchInput {
+    width: 400px;
+  }
+  .sortBtns {
+    width: 300px;
+  }
+}

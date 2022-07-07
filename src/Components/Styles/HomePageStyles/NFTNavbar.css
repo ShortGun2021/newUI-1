@@ -1,0 +1,28 @@
+.nft-navlink {
+  font-family: Poppins;
+}
+
+.navItems {
+  margin-right: 10px;
+}
+@media only screen and (min-width: 944px) {
+  .mobile {
+    display: none;
+    background-color: #fbfbfb;
+  }
+}
+@media only screen and (max-width: 944px) {
+  .desktop {
+    display: none;
+    background-color: #fbfbfb;
+  }
+}
+@media only screen and (max-width: 330px) {
+  .Brandname {
+    display: none;
+    background-color: #fbfbfb;
+  }
+}
+.nft-nav-formcontrol::placeholder {
+  text-decoration: underline white;
+}

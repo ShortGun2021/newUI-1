@@ -1,0 +1,78 @@
+.discover-heading {
+  font-family: Poppins;
+  font-style: normal;
+
+  text-align: center;
+  padding: 5px;
+}
+
+@media screen and (min-width: 881px) {
+  .discover-heading {
+    margin: 3% 25% 0 25%;
+  }
+  .discover-text-heading {
+    font-size: '35px';
+    line-height: 50px;
+  }
+}
+
+@media screen and (max-width: 881px) {
+  .discover-heading {
+    margin: 5% 5% 0 5%;
+  }
+  .discover-text-heading {
+    font-size: 28px;
+    line-height: 40px;
+  }
+}
+
+.discover-para {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 200;
+  font-size: x-large;
+  text-align: center;
+}
+
+@media screen and (min-width: 881px) {
+  .discover-para {
+    font-size: 24px;
+    color: #636363;
+    margin: 0 25% 20px 25%;
+  }
+}
+
+@media screen and (max-width: 881px) {
+  .discover-para {
+    font-size: 18px;
+    color: #636363;
+    margin: 0 6% 20px 6%;
+  }
+}
+
+.discover-explore-btn {
+  background: #6739b7;
+  border-radius: 6px;
+  width: 150px;
+  height: 42px;
+  font-size: 18px;
+}
+.discover-create-btn {
+  background: #ffffff;
+  color: black;
+  border: 1px solid #6739b7;
+  border-radius: 6px;
+  width: 150px;
+  height: 42px;
+  font-size: 18px;
+}
+.discover-create-btn:hover {
+  cursor: not-allowed;
+}
+.learn-more-anchor {
+  text-decoration: none;
+}
+.learn-more-anchor p {
+  font-size: large;
+  color: #6739b7;
+}

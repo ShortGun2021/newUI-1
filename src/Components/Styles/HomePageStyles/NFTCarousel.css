@@ -1,0 +1,22 @@
+.carousel-row-cards{
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    margin-top: 2%;
+}
+.carousel-header{
+    font-family: Poppins;
+    font-weight: 700;
+    font-size: 45px;
+}
+
+@media screen and (min-width: 881px){
+    .mobile-carousel{
+        display: none;
+    }
+}
+@media screen and (max-width: 881px){
+    .desktop-carousel{
+        display: none;
+    }
+}
