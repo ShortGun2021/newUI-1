@@ -1,47 +1,83 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
+// import FormControl from "@material-ui/core/FormControl";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import axios from "axios";
+import { IconButton, InputAdornment } from "@mui/material";
 
 const theme = createTheme();
+
 const Register = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState("");
+  const [showPassword2, setShowPassword2] = useState("");
+
+  const handleShowPassword = () => {
+    setShowPassword((show) => !show);
   };
+  const handleShowPassword2 = () => {
+    setShowPassword2((show) => !show);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (username !== "" && email !== "" && password === confirmPassword) {
+      // console.log(email,password);
+      axios
+        .post(
+          "https://shortgun-backend.herokuapp.com/user/register",
+          // "http://localhost:5000/user/signin",
+          {
+            username,
+            email,
+            password,
+            confirmPassword,
+          },
+          config
+        )
+        .then((response) => {
+          console.log(response.data);
+          window.alert("Registeration Successful!");
+          console.log("Register Successful!");
+          navigate("/login");
+        })
+        .catch((error) => {
+          console.log(error);
+          window.alert("Server Error");
+          // console.log("Server Error");
+        });
+      // alert('Login Success');
+    } else {
+      alert("Please Enter Valid Details");
+      // console.log(values);
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -58,7 +94,7 @@ const Register = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Register
           </Typography>
           <Box
             component="form"
@@ -70,49 +106,97 @@ const Register = () => {
               margin="normal"
               required
               fullWidth
+              id="username"
+              label="User Name"
+              name="username"
+              autoComplete="username"
+              type="text"
+              autoFocus
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
               id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
               required
               fullWidth
               name="password"
-              label="Password"
-              type="password"
               id="password"
               autoComplete="current-password"
+              type={showPassword ? "text" : "password"}
+              label="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleShowPassword} edge="end">
+                      {showPassword ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
-            <FormControlLabel
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="confirmpassword"
+              id="password"
+              autoComplete="confirm-password"
+              type={showPassword2 ? "text" : "password"}
+              label="Confirm Password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleShowPassword2} edge="end">
+                      {showPassword2 ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Register
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
+
+            <Grid container sx={{ mt: 2 }}>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+                <Link href="/login">Already have an account? LogIn</Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Grid container sx={{ mt: 2 }}>
+          <Grid item>
+            <Link href="/">Back to Homepage</Link>
+          </Grid>
+        </Grid>
       </Container>
     </ThemeProvider>
   );

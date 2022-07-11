@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 const useAuth = () => {
-  return null;
+  return localStorage.getItem("user");
 };
 const PrivateRoute = ({ children }) => {
   //   const Navigate = useNavigate();
