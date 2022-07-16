@@ -11,6 +11,8 @@ import {
 import { MdFavorite } from 'react-icons/md'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { BsGrid } from 'react-icons/bs'
+import { Spinner } from 'react-bootstrap'
+
 import { TbGridDots } from 'react-icons/tb'
 import '../Styles/ProfilePageStyles/profileCollected.css'
 import { useEffect, useState } from 'react'
@@ -130,12 +132,16 @@ const RenderCards = ({ card, nftData }) => {
 
 export default function Profile_collected() {
   const [nftData, setNftData] = useState([])
+  const [isLoading, setisLoading] = useState(false)
+
   const fetchNfts = async () => {
+    setisLoading(true)
     try {
       const res = await axios.get(
         'https://shortgun-backend.herokuapp.com/nft/getNFTs'
       )
       setNftData(res.data)
+      setisLoading(false)
     } catch (err) {
       console.log(err)
     }
@@ -231,13 +237,36 @@ export default function Profile_collected() {
             </Row>
           </Form>
         </Container>
-        <Container>
-          <Row>
-            {nftData.map((card, index) => {
-              return <RenderCards key={index} card={card} nftData={nftData} />
-            })}
-          </Row>
-        </Container>
+        {isLoading ? (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <Spinner
+              animation="border"
+              style={{
+                fontSize: '50px',
+                color: '#6739B7',
+                width: '100px',
+                height: '100px',
+                margin: '50px auto 40px auto',
+              }}
+              role="status"
+            >
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        ) : (
+          <Container>
+            <Row>
+              {nftData.map((card, index) => {
+                return <RenderCards key={index} card={card} nftData={nftData} />
+              })}
+            </Row>
+          </Container>
+        )}
       </Container>
     </>
   )

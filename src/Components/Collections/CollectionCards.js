@@ -128,12 +128,16 @@ const RenderCards = ({ card, nftData }) => {
   )
 }
 
-export default function CollectionCards() {
+export default function CollectionCards({ setloadings, loadingCount }) {
   const [nftData, setNftData] = useState([])
   const fetchNfts = async () => {
     try {
-      const res = await axios.get('https://shortgun-backend.herokuapp.com/nft/getNFTs')
+      const res = await axios.get(
+        'https://shortgun-backend.herokuapp.com/nft/getNFTs'
+      )
       setNftData(res.data)
+      loadingCount = loadingCount + 1
+      setloadings(loadingCount)
     } catch (err) {
       console.log(err)
     }
