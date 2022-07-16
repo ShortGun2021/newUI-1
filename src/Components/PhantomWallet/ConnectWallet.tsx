@@ -1,85 +1,79 @@
-import { PublicKey, Transaction } from "@solana/web3.js";
-import { FC, useEffect, useState } from "react";
-import TransferSol from './TransferSol.tsx';
+import React, { FC, useMemo } from "react";
+import {
+  ConnectionProvider,
+  WalletProvider,
+  useWallet,
+  useConnection,
+} from "@solana/wallet-adapter-react";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+import {
+  CoinbaseWalletAdapter,
+  GlowWalletAdapter,
+  PhantomWalletAdapter,
+  SlopeWalletAdapter,
+  SolflareWalletAdapter,
+  SolletExtensionWalletAdapter,
+  SolletWalletAdapter,
+  TorusWalletAdapter,
+} from "@solana/wallet-adapter-wallets";
+import {
+  WalletModalProvider,
+  WalletDisconnectButton,
+  WalletMultiButton,
+} from "@solana/wallet-adapter-react-ui";
+import { clusterApiUrl, PublicKey } from "@solana/web3.js";
+import {
+  createDefaultAuthorizationResultCache,
+  SolanaMobileWalletAdapter,
+} from "@solana-mobile/wallet-adapter-mobile";
 
+import TransferSol from "./TransferSol.tsx";
 
-type PhantomEvent = "disconnect" | "connect" | "accountChanged";
+// Default styles that can be overridden by your app
+require("@solana/wallet-adapter-react-ui/styles.css");
 
-interface ConnectOpts {
-    onlyIfTrusted: boolean;
-}
+export const ConnectWallet: FC = () => {
+  // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
+  const { connection } = useConnection();
+  console.log(connection);
+  const { publicKey } = useWallet();
+  if (publicKey) console.log(publicKey.toBase58());
+  const network = WalletAdapterNetwork.Devnet;
 
-export interface PhantomProvider {
-    connect: (opts?: Partial<ConnectOpts>) => Promise<{ publicKey: PublicKey }>;
-    disconnect: ()=>Promise<void>;
-    on: (event: PhantomEvent, callback: (args:any)=>void) => void;
-    isPhantom: boolean;
-    publicKey: PublicKey;
-    signTransaction: (t: Transaction) => {}
-}
+  // You can also provide a custom RPC endpoint.
+  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
-type WindowWithSolana = Window & { 
-    solana?: PhantomProvider;
-}
+  // @solana/wallet-adapter-wallets includes all the adapters but supports tree shaking and lazy loading --
+  // Only the wallets you configure here will be compiled into your application, and only the dependencies
+  // of wallets that your users connect to will be loaded.
+  const wallets = useMemo(
+    () => [
+      new SolanaMobileWalletAdapter({
+        appIdentity: { name: "Solana Wallet Adapter App" },
+        authorizationResultCache: createDefaultAuthorizationResultCache(),
+      }),
+      new CoinbaseWalletAdapter(),
+      new PhantomWalletAdapter(),
+      new GlowWalletAdapter(),
+      new SlopeWalletAdapter(),
+      new SolflareWalletAdapter({ network }),
+      new TorusWalletAdapter(),
+    ],
+    [network]
+  );
 
-
-const ConnectWallet: FC = () => {
-
-    const [ walletAvail, setWalletAvail ] = useState(false);
-    const [ provider, setProvider ] = useState<PhantomProvider | null>(null);
-    const [ connected, setConnected ] = useState(false);
-
-    useEffect( ()=>{
-        if ("solana" in window) {
-            const solWindow = window as WindowWithSolana;
-            if (solWindow?.solana?.isPhantom) {
-                setProvider(solWindow.solana);
-                setWalletAvail(true);
-                // Attemp an eager connection
-                solWindow.solana.connect({ onlyIfTrusted: true });
-            }
-        }
-    }, []);
-
-    useEffect( () => {
-        provider?.on("connect", (publicKey: PublicKey)=>{ 
-            console.log(`connect event: ${publicKey}`);
-            setConnected(true); 
-        });
-        provider?.on("disconnect", ()=>{ 
-            console.log("disconnect event");
-            setConnected(false); 
-        });
-    }, [provider]);
-
-    const connectHandler: React.MouseEventHandler<HTMLButtonElement> = (event) => {
-        console.log(`connect handler`);
-        provider?.connect()
-        .catch((err) => { console.error("connect ERROR:", err); });
-    }
-
-    const disconnectHandler: React.MouseEventHandler<HTMLButtonElement> = (event) => {
-        console.log("disconnect handler");
-        provider?.disconnect()
-        .catch((err) => {console.error("disconnect ERROR:", err); });
-    }
-
-    return (
-        <div>
-            { walletAvail ?
-                <>
-                <button disabled={connected} onClick={connectHandler}>Connect to Phantom</button>
-                <button disabled={!connected} onClick={disconnectHandler}>Disconnect from Phantom</button>
-                <hr/>
-                { connected && provider ? <TransferSol provider={provider} /> : null }
-                </>
-            :
-            <>
-                <p>Opps!!! Phantom is not available. Go get it <a href="https://phantom.app/">https://phantom.app/</a>.</p>
-            </>
-            }
-        </div>
-    );
-}
+  return (
+    <ConnectionProvider endpoint={endpoint}>
+      <WalletProvider wallets={wallets} autoConnect>
+        <WalletModalProvider>
+          <WalletMultiButton />
+          <WalletDisconnectButton />
+          {/* Your app's components go here, nested within the context providers. */}
+          <TransferSol />
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
+  );
+};
 
 export default ConnectWallet;
