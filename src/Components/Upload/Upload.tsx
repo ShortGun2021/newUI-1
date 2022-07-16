@@ -309,7 +309,7 @@ const Upload = () => {
   return (
     <>
     <NFTNavbar/>
-    <h1 className="text-center my-3">Create NFT</h1>
+    <h1 className="text-center my-3" style={{fontFamily:"Poppins", fontStyle: "normal", fontWeight:"700"}}>Create NFT</h1>
     <div className="upload-header">
       {/* ----------------------------Image Uploading Section---------------------- */}
     
@@ -336,6 +336,7 @@ const Upload = () => {
                 // style={isDragging ? { color: "red" } : undefined}
                 onClick={onImageUpload}
                 {...dragProps}
+                style={{backgroundColor:"#6739b7"}}
               >
                 Click or Drop here
               </Button>
@@ -440,6 +441,7 @@ const Upload = () => {
                           size="small"
                           variant="contained"
                           onClick={onremoveAttr}
+                          style={{backgroundColor:"#6739b7"}}
                         >
                           -
                         </Button>
@@ -448,6 +450,7 @@ const Upload = () => {
                           size="small"
                           variant="contained"
                           onClick={onclick}
+                          style={{backgroundColor:"#6739b7"}}
                         >
                           +
                         </Button>
@@ -513,6 +516,7 @@ const Upload = () => {
                           size="small"
                           variant="contained"
                           onClick={removeadd}
+                          style={{backgroundColor:"#6739b7"}}
                         >
                           -
                         </Button>
@@ -521,6 +525,7 @@ const Upload = () => {
                           size="small"
                           variant="contained"
                           onClick={onclickadd}
+                          style={{backgroundColor:"#6739b7"}}
                         >
                           +
                         </Button>
@@ -534,7 +539,7 @@ const Upload = () => {
         </div>
       </Box>
 
-      <Button variant="contained" onClick={Ar} size="large">
+      <Button variant="contained" onClick={Ar} size="large" style={{backgroundColor:"#6739b7"}}>
         Create NFT
       </Button>
     </div>

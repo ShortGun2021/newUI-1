@@ -181,6 +181,7 @@ const Register = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              style={{backgroundColor:"#6739b7"}}
             >
               Register
             </Button>
