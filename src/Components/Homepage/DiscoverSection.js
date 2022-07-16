@@ -6,7 +6,10 @@ require('bootstrap/dist/css/bootstrap.min.css')
 
 let navigate
 const handleClick = () => {
-  navigate('./explore')
+  navigate('/explore')
+}
+const handleCreateBtn = () =>{
+  navigate('/admin');
 }
 
 export default function Header() {
@@ -33,7 +36,7 @@ export default function Header() {
             >
               Explore
             </Button>{' '}
-            <Button className="m-2 discover-create-btn" size="lg" type="submit">
+            <Button className="m-2 discover-create-btn" size="lg" type="submit" onClick={handleCreateBtn}>
               Create
             </Button>{' '}
           </div>

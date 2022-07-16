@@ -74,7 +74,7 @@ const Cards = ({ nftData, card, index }) => {
   )
 }
 
-export default function HeaderCard() {
+export default function HeaderCard({ setloadings, loadingCount }) {
   const [nftData, setNftData] = useState([{}])
   useEffect(() => {
     axios
@@ -84,7 +84,8 @@ export default function HeaderCard() {
         // 'nftData' = response.data;
         // console.log('nftData'[0].nftName);
         setNftData(response.data)
-
+        loadingCount = loadingCount + 1
+        setloadings(loadingCount)
         // return 'nftData';
         // console.log( nftData)
         // setNftData(response.data)
@@ -101,19 +102,15 @@ export default function HeaderCard() {
   return (
     <>
       <Container>
-        {nftData ? (
-          <Container>
-            <Row>
-              {nftData.map((card, idx) => {
-                return (
-                  <Cards key={idx} nftData={nftData} card={card} index={idx} />
-                )
-              })}
-            </Row>
-          </Container>
-        ) : (
-          <div></div>
-        )}
+        <Container>
+          <Row>
+            {nftData.map((card, idx) => {
+              return (
+                <Cards key={idx} nftData={nftData} card={card} index={idx} />
+              )
+            })}
+          </Row>
+        </Container>
       </Container>
     </>
   )

@@ -32,6 +32,7 @@
     "web-vitals": "^2.1.4",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.3",
     "@solana/spl-token": "^0.2.0",
     "arweave": "^1.11.4",

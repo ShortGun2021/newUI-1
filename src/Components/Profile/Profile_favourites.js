@@ -2,6 +2,8 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Card, Button, Container, Col, Row, Image } from 'react-bootstrap'
 import { MdFavorite } from 'react-icons/md'
+import { Spinner } from 'react-bootstrap'
+
 require('bootstrap/dist/css/bootstrap.min.css')
 const cardDetails = [
   {
@@ -110,12 +112,17 @@ const RenderCards = ({ nftData, card }) => {
 
 function Profile_favourites() {
   const [nftData, setNftData] = useState([])
+  const [isLoading, setisLoading] = useState(false)
+
   const fetchNtfs = async () => {
+    setisLoading(true)
+
     try {
       const res = await axios.get(
         'https://shortgun-backend.herokuapp.com/nft/getNFTs'
       )
       setNftData(res.data)
+      setisLoading(false)
     } catch (err) {
       console.log(err)
     }
@@ -127,13 +134,36 @@ function Profile_favourites() {
   return (
     <>
       <Container style={{ marginTop: '10px' }}>
-        <Container>
-          <Row>
-            {nftData.map((card, index) => {
-              return <RenderCards key={index} card={card} nftData={nftData} />
-            })}
-          </Row>
-        </Container>
+        {isLoading ? (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <Spinner
+              animation="border"
+              style={{
+                fontSize: '50px',
+                color: '#6739B7',
+                width: '100px',
+                height: '100px',
+                margin: '50px auto 40px auto',
+              }}
+              role="status"
+            >
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        ) : (
+          <Container>
+            <Row>
+              {nftData.map((card, index) => {
+                return <RenderCards key={index} card={card} nftData={nftData} />
+              })}
+            </Row>
+          </Container>
+        )}
       </Container>
     </>
   )

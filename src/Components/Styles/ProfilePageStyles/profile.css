@@ -5,6 +5,23 @@
   position: relative;
   font-family: 'Poppins', sans-serif;
 }
+.collectiblesCover {
+  width: 100%;
+  position: absolute;
+  top: 1;
+  object-fit: cover;
+}
+.collectiblesPic {
+  position: absolute;
+  left: 50%;
+  top: 218px;
+  transform: translate(-50%, 0);
+  border-radius: 100%;
+  width: 140px;
+  height: 140px;
+  left: 50%;
+  border: 8px solid white;
+}
 .cover {
   width: 100%;
   position: absolute;

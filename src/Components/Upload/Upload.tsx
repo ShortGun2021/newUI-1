@@ -2,6 +2,7 @@ import React from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import Arweave from "arweave";
 import { Buffer } from "buffer";
+import NFTNavbar from '../Homepage/NFTNavbar';
 import '../Styles/UploadPageStyles/Upload.css'
 import {
   TextField,
@@ -306,9 +307,12 @@ const Upload = () => {
     }
   };
   return (
+    <>
+    <NFTNavbar/>
+    <h1 className="text-center my-3" style={{fontFamily:"Poppins", fontStyle: "normal", fontWeight:"700"}}>Create NFT</h1>
     <div className="upload-header">
       {/* ----------------------------Image Uploading Section---------------------- */}
-
+    
       <Container maxWidth="sm">
         <ImageUploading
           multiple
@@ -332,6 +336,7 @@ const Upload = () => {
                 // style={isDragging ? { color: "red" } : undefined}
                 onClick={onImageUpload}
                 {...dragProps}
+                style={{backgroundColor:"#6739b7"}}
               >
                 Click or Drop here
               </Button>
@@ -436,6 +441,7 @@ const Upload = () => {
                           size="small"
                           variant="contained"
                           onClick={onremoveAttr}
+                          style={{backgroundColor:"#6739b7"}}
                         >
                           -
                         </Button>
@@ -444,6 +450,7 @@ const Upload = () => {
                           size="small"
                           variant="contained"
                           onClick={onclick}
+                          style={{backgroundColor:"#6739b7"}}
                         >
                           +
                         </Button>
@@ -509,6 +516,7 @@ const Upload = () => {
                           size="small"
                           variant="contained"
                           onClick={removeadd}
+                          style={{backgroundColor:"#6739b7"}}
                         >
                           -
                         </Button>
@@ -517,6 +525,7 @@ const Upload = () => {
                           size="small"
                           variant="contained"
                           onClick={onclickadd}
+                          style={{backgroundColor:"#6739b7"}}
                         >
                           +
                         </Button>
@@ -530,10 +539,11 @@ const Upload = () => {
         </div>
       </Box>
 
-      <Button variant="contained" onClick={Ar} size="large">
-        Upload
+      <Button variant="contained" onClick={Ar} size="large" style={{backgroundColor:"#6739b7"}}>
+        Create NFT
       </Button>
     </div>
+    </>
   );
 };
 

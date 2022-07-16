@@ -6,7 +6,7 @@
   padding: 5px;
 }
 
-@media screen and (min-width: 881px) {
+@media screen and (min-width: 1050px) {
   .discover-heading {
     margin: 3% 25% 0 25%;
   }
@@ -16,7 +16,13 @@
   }
 }
 
-@media screen and (max-width: 881px) {
+@media only screen and (max-width: 1050px) and (min-width: 893px) {
+  .discover-heading {
+    margin: 3% 18% 0 18%;
+  }
+}
+
+@media screen and (max-width: 893px) {
   .discover-heading {
     margin: 5% 5% 0 5%;
   }
