@@ -2,8 +2,8 @@ import React from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import Arweave from "arweave";
 import { Buffer } from "buffer";
-import NFTNavbar from '../Homepage/NFTNavbar';
-import '../Styles/UploadPageStyles/Upload.css'
+import NFTNavbar from "../Homepage/NFTNavbar";
+import "../Styles/UploadPageStyles/Upload.css";
 import {
   TextField,
   Box,
@@ -12,6 +12,7 @@ import {
   Button,
   Stack,
 } from "@mui/material";
+import axios from "axios";
 
 const Upload = () => {
   let temp = true;
@@ -297,6 +298,7 @@ const Upload = () => {
       });
 
       console.log("https://arweave.net/" + metaTransaction.id);
+      const metaDataUrl = "https://arweave.net/" + metaTransaction.id;
 
       let response2 = await arweave.transactions.post(metaTransaction);
       console.log(response2);
@@ -304,245 +306,311 @@ const Upload = () => {
       console.log("successfully uploaded image and metadata");
 
       // -------------------------------
+      //saving the arweave transaction and nft details to DB
+      // const config = {
+      //   header: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
+      axios
+        .post(
+          // "https://shortgun-backend.herokuapp.com/nft/createNFT",
+          "http://localhost:5000/nft/createNFT",
+          {
+            nftUrl: metaDataUrl,
+            nftImageUrl: imageUrl,
+            nftName: meta.name,
+            nftSymbol: meta.symbol,
+            nftDescription: meta.description,
+            seller_fee_basis_points: meta.seller_fee_basis_points,
+            nftTraitType: meta.attributes[0].trait_type,
+            nftValue: meta.attributes[0].value,
+            nftCategory: meta.properties.category,
+            walletAddress: meta.properties.creators[0].address,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response.data);
+          window.alert("NFT Created Successfully!");
+          console.log("NFT Creation Successful!");
+          localStorage.setItem("nftId", JSON.stringify(response.data.nftId));
+          // navigate("/");
+        })
+        .catch((error) => {
+          console.log(error);
+          window.alert("Something Went Wrong. Please recreate your NFT");
+          // console.log("Server Error");
+        });
     }
   };
   return (
     <>
-    <NFTNavbar/>
-    <h1 className="text-center my-3" style={{fontFamily:"Poppins", fontStyle: "normal", fontWeight:"700"}}>Create NFT</h1>
-    <div className="upload-header">
-      {/* ----------------------------Image Uploading Section---------------------- */}
-    
-      <Container maxWidth="sm">
-        <ImageUploading
-          multiple
-          value={images}
-          onChange={onChange}
-          maxNumber={maxNumber}
-        >
-          {({
-            imageList,
-            onImageUpload,
-            onImageUpdate,
-            onImageRemove,
-            isDragging,
-            dragProps,
-          }) => (
-            // write your building UI
-
-            <div className="upload__image-wrapper">
-              <Button
-                variant="contained"
-                // style={isDragging ? { color: "red" } : undefined}
-                onClick={onImageUpload}
-                {...dragProps}
-                style={{backgroundColor:"#6739b7"}}
-              >
-                Click or Drop here
-              </Button>
-              &nbsp;
-              {imageList.map((image, index) => (
-                <div key={index} className="image-item">
-                  <img src={image.dataURL} alt="" width="400" />
-                  {/* <Stack direction = "row" spacing={1}> */}
-
-                  <div className="image-item__btn-wrapper">
-                    <Stack direction="row" spacing={1} justifyContent="center">
-                      <Button
-                        variant="contained"
-                        onClick={() => onImageUpdate(index)}
-                      >
-                        Update
-                      </Button>
-
-                      <Button
-                        variant="contained"
-                        onClick={() => onImageRemove(index)}
-                      >
-                        Remove
-                      </Button>
-                    </Stack>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </ImageUploading>
-      </Container>
-
-      {/* ----------Metadata Section -------------------------------- */}
-      <Box>
-        <div>
-          {/* cl */}
-
-          <Box m={3}>
-            <Stack direction="row" spacing={2} justifyContent="center">
-              <TextField
-                label="Name"
-                value={meta.name}
-                name="name"
-                onChange={onChangeName}
-                // required={true}
-                required
-              />
-              <TextField
-                label="symbol"
-                value={meta.symbol}
-                name="symbol"
-                onChange={onChangeName}
-                required
-              />
-            </Stack>
-          </Box>
-
-          <Box m={3}>
-            <Stack direction="row" spacing={2} justifyContent="center">
-              <TextField
-                label="description"
-                value={meta.description}
-                name="description"
-                onChange={onChangeName}
-                required
-              />
-              <TextField
-                label="seller fee basis points"
-                value={meta.seller_fee_basis_points}
-                name="seller_fee_basis_points"
-                onChange={onChangeSeller}
-                required
-              />
-            </Stack>
-          </Box>
-          {meta.attributes.map((x, i) => {
-            return (
-              <>
-                <div key={i}>
-                  <Box m={2}>
-                    <Stack direction="row" spacing={2} justifyContent="center">
-                      <TextField
-                        placeholder="eg. Eyes"
-                        label="trait_type"
-                        value={x.trait_type}
-                        name="trait_type"
-                        onChange={(e) => onChangeAttr(e, i)}
-                        required
-                      />
-                      <TextField
-                        placeholder="eg. Red"
-                        label="value"
-                        value={x.value}
-                        name="value"
-                        onChange={(e) => onChangeAttr(e, i)}
-                        required
-                      />
-
-                      {i > 0 ? (
-                        <Button
-                          size="small"
-                          variant="contained"
-                          onClick={onremoveAttr}
-                          style={{backgroundColor:"#6739b7"}}
-                        >
-                          -
-                        </Button>
-                      ) : (
-                        <Button
-                          size="small"
-                          variant="contained"
-                          onClick={onclick}
-                          style={{backgroundColor:"#6739b7"}}
-                        >
-                          +
-                        </Button>
-                      )}
-                    </Stack>
-                  </Box>
-                </div>
-              </>
-            );
-          })}
-
-          {/* Properties */}
-          {meta.properties.files.map((v, z) => {
-            return (
-              <>
-                <Box m={3}>
-                  <Stack direction="row" spacing={2} justifyContent="center">
-                    <TextField
-                      placeholder="image/png"
-                      label="type"
-                      value={meta.properties.files[0].type}
-                      name="type"
-                      onChange={onChangePropType}
-                      required
-                    />
-                    <TextField
-                      label="category"
-                      placeholder="image"
-                      value={meta.properties.category}
-                      name="category"
-                      onChange={onchangeCategory}
-                      required
-                    />
-                  </Stack>
-                </Box>
-              </>
-            );
-          })}
-
-          {meta.properties.creators.map((x, i) => {
-            return (
-              <>
-                <div key={i}>
-                  <Box m={2}>
-                    <Stack direction="row" spacing={2} justifyContent="center">
-                      <TextField
-                        label="Address"
-                        value={x.address}
-                        name="address"
-                        onChange={(e) => onchangeAddress(e, i)}
-                        required
-                      />
-                      <TextField
-                        label="Share"
-                        value={x.share}
-                        name="share"
-                        onChange={(e) => onchangeAddress(e, i)}
-                        required
-                      />
-
-                      {i > 0 ? (
-                        <Button
-                          size="small"
-                          variant="contained"
-                          onClick={removeadd}
-                          style={{backgroundColor:"#6739b7"}}
-                        >
-                          -
-                        </Button>
-                      ) : (
-                        <Button
-                          size="small"
-                          variant="contained"
-                          onClick={onclickadd}
-                          style={{backgroundColor:"#6739b7"}}
-                        >
-                          +
-                        </Button>
-                      )}
-                    </Stack>
-                  </Box>
-                </div>
-              </>
-            );
-          })}
-        </div>
-      </Box>
-
-      <Button variant="contained" onClick={Ar} size="large" style={{backgroundColor:"#6739b7"}}>
+      <NFTNavbar />
+      <h1
+        className="text-center my-3"
+        style={{
+          fontFamily: "Poppins",
+          fontStyle: "normal",
+          fontWeight: "700",
+        }}
+      >
         Create NFT
-      </Button>
-    </div>
+      </h1>
+      <div className="upload-header">
+        {/* ----------------------------Image Uploading Section---------------------- */}
+
+        <Container maxWidth="sm">
+          <ImageUploading
+            multiple
+            value={images}
+            onChange={onChange}
+            maxNumber={maxNumber}
+          >
+            {({
+              imageList,
+              onImageUpload,
+              onImageUpdate,
+              onImageRemove,
+              isDragging,
+              dragProps,
+            }) => (
+              // write your building UI
+
+              <div className="upload__image-wrapper">
+                <Button
+                  variant="contained"
+                  // style={isDragging ? { color: "red" } : undefined}
+                  onClick={onImageUpload}
+                  {...dragProps}
+                  style={{ backgroundColor: "#6739b7" }}
+                >
+                  Click or Drop here
+                </Button>
+                &nbsp;
+                {imageList.map((image, index) => (
+                  <div key={index} className="image-item">
+                    <img src={image.dataURL} alt="" width="400" />
+                    {/* <Stack direction = "row" spacing={1}> */}
+
+                    <div className="image-item__btn-wrapper">
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        justifyContent="center"
+                      >
+                        <Button
+                          variant="contained"
+                          onClick={() => onImageUpdate(index)}
+                        >
+                          Update
+                        </Button>
+
+                        <Button
+                          variant="contained"
+                          onClick={() => onImageRemove(index)}
+                        >
+                          Remove
+                        </Button>
+                      </Stack>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </ImageUploading>
+        </Container>
+
+        {/* ----------Metadata Section -------------------------------- */}
+        <Box>
+          <div>
+            {/* cl */}
+
+            <Box m={3}>
+              <Stack direction="row" spacing={2} justifyContent="center">
+                <TextField
+                  label="Name"
+                  value={meta.name}
+                  name="name"
+                  onChange={onChangeName}
+                  // required={true}
+                  required
+                />
+                <TextField
+                  label="symbol"
+                  value={meta.symbol}
+                  name="symbol"
+                  onChange={onChangeName}
+                  required
+                />
+              </Stack>
+            </Box>
+
+            <Box m={3}>
+              <Stack direction="row" spacing={2} justifyContent="center">
+                <TextField
+                  label="description"
+                  value={meta.description}
+                  name="description"
+                  onChange={onChangeName}
+                  required
+                />
+                <TextField
+                  label="seller fee basis points"
+                  value={meta.seller_fee_basis_points}
+                  name="seller_fee_basis_points"
+                  onChange={onChangeSeller}
+                  required
+                />
+              </Stack>
+            </Box>
+            {meta.attributes.map((x, i) => {
+              return (
+                <>
+                  <div key={i}>
+                    <Box m={2}>
+                      <Stack
+                        direction="row"
+                        spacing={2}
+                        justifyContent="center"
+                      >
+                        <TextField
+                          placeholder="eg. Eyes"
+                          label="trait_type"
+                          value={x.trait_type}
+                          name="trait_type"
+                          onChange={(e) => onChangeAttr(e, i)}
+                          required
+                        />
+                        <TextField
+                          placeholder="eg. Red"
+                          label="value"
+                          value={x.value}
+                          name="value"
+                          onChange={(e) => onChangeAttr(e, i)}
+                          required
+                        />
+
+                        {i > 0 ? (
+                          <Button
+                            size="small"
+                            variant="contained"
+                            onClick={onremoveAttr}
+                            style={{ backgroundColor: "#6739b7" }}
+                          >
+                            -
+                          </Button>
+                        ) : (
+                          <Button
+                            size="small"
+                            variant="contained"
+                            onClick={onclick}
+                            style={{ backgroundColor: "#6739b7" }}
+                          >
+                            +
+                          </Button>
+                        )}
+                      </Stack>
+                    </Box>
+                  </div>
+                </>
+              );
+            })}
+
+            {/* Properties */}
+            {meta.properties.files.map((v, z) => {
+              return (
+                <>
+                  <Box m={3}>
+                    <Stack direction="row" spacing={2} justifyContent="center">
+                      <TextField
+                        placeholder="image/png"
+                        label="type"
+                        value={meta.properties.files[0].type}
+                        name="type"
+                        onChange={onChangePropType}
+                        required
+                      />
+                      <TextField
+                        label="category"
+                        placeholder="image"
+                        value={meta.properties.category}
+                        name="category"
+                        onChange={onchangeCategory}
+                        required
+                      />
+                    </Stack>
+                  </Box>
+                </>
+              );
+            })}
+
+            {meta.properties.creators.map((x, i) => {
+              return (
+                <>
+                  <div key={i}>
+                    <Box m={2}>
+                      <Stack
+                        direction="row"
+                        spacing={2}
+                        justifyContent="center"
+                      >
+                        <TextField
+                          label="Address"
+                          value={x.address}
+                          name="address"
+                          onChange={(e) => onchangeAddress(e, i)}
+                          required
+                        />
+                        <TextField
+                          label="Share"
+                          value={x.share}
+                          name="share"
+                          onChange={(e) => onchangeAddress(e, i)}
+                          required
+                        />
+
+                        {i > 0 ? (
+                          <Button
+                            size="small"
+                            variant="contained"
+                            onClick={removeadd}
+                            style={{ backgroundColor: "#6739b7" }}
+                          >
+                            -
+                          </Button>
+                        ) : (
+                          <Button
+                            size="small"
+                            variant="contained"
+                            onClick={onclickadd}
+                            style={{ backgroundColor: "#6739b7" }}
+                          >
+                            +
+                          </Button>
+                        )}
+                      </Stack>
+                    </Box>
+                  </div>
+                </>
+              );
+            })}
+          </div>
+        </Box>
+
+        <Button
+          variant="contained"
+          onClick={Ar}
+          size="large"
+          style={{ backgroundColor: "#6739b7" }}
+        >
+          Create NFT
+        </Button>
+      </div>
     </>
   );
 };
