@@ -11,6 +11,7 @@ import {
   Form,
   Image,
   Row,
+  Spinner,
 } from 'react-bootstrap'
 import NFTNavbar from '../Homepage/NFTNavbar'
 import '../Styles/ExplorePageStyles/explore.css'
@@ -128,9 +129,16 @@ const RenderCards = ({ nftData, card }) => {
 function Explore() {
   const [Btnname, setBtnname] = useState('All Categories')
   const [nftData, setNftData] = useState([])
+  const [isLoading, setisLoading] = useState(false)
+
   const fetchNtfs = async () => {
-    const res = await axios.get('https://shortgun-backend.herokuapp.com/nft/getNFTs')
+    setisLoading(true)
+    const res = await axios.get(
+      'https://shortgun-backend.herokuapp.com/nft/getNFTs'
+    )
     setNftData(res.data)
+
+    setisLoading(false)
   }
   useEffect(() => {
     fetchNtfs()
@@ -305,13 +313,38 @@ function Explore() {
               </Form.Select>
             </div>
           </div>
-          <Container style={{ marginTop: '20px' }}>
-            <Row>
-              {nftData.map((card, index) => {
-                return <RenderCards key={index} card={card} nftData={nftData} />
-              })}
-            </Row>
-          </Container>
+          {isLoading ? (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <Spinner
+                animation="border"
+                style={{
+                  fontSize: '50px',
+                  color: '#6739B7',
+                  width: '100px',
+                  height: '100px',
+                  margin: '180px auto 40px auto',
+                }}
+                role="status"
+              >
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            </div>
+          ) : (
+            <Container style={{ marginTop: '20px' }}>
+              <Row>
+                {nftData.map((card, index) => {
+                  return (
+                    <RenderCards key={index} card={card} nftData={nftData} />
+                  )
+                })}
+              </Row>
+            </Container>
+          )}
         </div>
       </div>
     </>
