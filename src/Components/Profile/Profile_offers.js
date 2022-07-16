@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Image, Table } from 'react-bootstrap'
+import { Image, Spinner, Table } from 'react-bootstrap'
 import '../Styles/ProfilePageStyles/profileActivity.css'
 
 const data = [
@@ -95,45 +95,75 @@ const RenderData = ({ nftData, card }) => {
 
 function Profile_offers() {
   const [nftData, setNftData] = useState([])
+  const [isLoading, setisLoading] = useState(false)
+
   const fetchNtfs = async () => {
-    const res = await axios.get('https://shortgun-backend.herokuapp.com/nft/getNFTs')
+    setisLoading(true)
+    const res = await axios.get(
+      'https://shortgun-backend.herokuapp.com/nft/getNFTs'
+    )
     setNftData(res.data)
+    setisLoading(false)
   }
   useEffect(() => {
     fetchNtfs()
   }, [])
   return (
     <div>
-      <div className="table">
-        <Table
-          responsive="sm"
-          className="table"
+      {isLoading ? (
+        <div
           style={{
-            border: '1px solid #CFCFCF',
-            marginTop: '10px',
-            borderCollapse: 'separate',
-            borderSpacing: '0 10px',
-            backgroundColor: '#F8F8F8',
+            display: 'flex',
+            justifyContent: 'center',
           }}
         >
-          <thead>
-            <tr style={{ lineHeight: '18px' }}>
-              <th style={{ color: '#636363' }}>NFT Name</th>
-              <th style={{ color: '#636363' }}>Unit Price</th>
-              <th style={{ color: '#636363' }}>USD Unit Price</th>
-              <th style={{ color: '#636363' }}>Floor difference </th>
-              <th style={{ color: '#636363' }}>To</th>
-              <th style={{ color: '#636363' }}>Expiration</th>
-              <th style={{ color: '#636363' }}>Made</th>
-            </tr>
-          </thead>
-          <tbody style={{ border: '0px solid white' }}>
-            {nftData.map((card, index) => {
-              return <RenderData key={index} card={card} nftData={nftData} />
-            })}
-          </tbody>
-        </Table>
-      </div>
+          <Spinner
+            animation="border"
+            style={{
+              fontSize: '50px',
+              color: '#6739B7',
+              width: '100px',
+              height: '100px',
+              margin: '50px auto 40px auto',
+            }}
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      ) : (
+        <div className="table">
+          <Table
+            responsive="sm"
+            className="table"
+            style={{
+              border: '1px solid #CFCFCF',
+              marginTop: '10px',
+              borderCollapse: 'separate',
+              borderSpacing: '0 10px',
+              backgroundColor: '#F8F8F8',
+            }}
+          >
+            <thead>
+              <tr style={{ lineHeight: '18px' }}>
+                <th style={{ color: '#636363' }}>NFT Name</th>
+                <th style={{ color: '#636363' }}>Unit Price</th>
+                <th style={{ color: '#636363' }}>USD Unit Price</th>
+                <th style={{ color: '#636363' }}>Floor difference </th>
+                <th style={{ color: '#636363' }}>To</th>
+                <th style={{ color: '#636363' }}>Expiration</th>
+                <th style={{ color: '#636363' }}>Made</th>
+              </tr>
+            </thead>
+
+            <tbody style={{ border: '0px solid white' }}>
+              {nftData.map((card, index) => {
+                return <RenderData key={index} card={card} nftData={nftData} />
+              })}
+            </tbody>
+          </Table>
+        </div>
+      )}
     </div>
   )
 }
