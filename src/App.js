@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import HomePage from "./Components/Homepage/HomePage";
+import NFTNavbar from "./Components/Homepage/NFTNavbar";
 import SearchPage from "./Components/Search/SearchPage";
 import CollectionsPage from "./Components/Collections/Collections";
 import ExplorePage from "./Components/Explore/Explore";
@@ -23,6 +24,7 @@ const App = () => {
       {/* <CollectionsPage/> */}
 
       <Router>
+        <NFTNavbar />
         <Routes>
           <Route exact path="/" element={<HomePage />}></Route>
           <Route

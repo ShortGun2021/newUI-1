@@ -2,7 +2,7 @@ import React from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import Arweave from "arweave";
 import { Buffer } from "buffer";
-import NFTNavbar from "../Homepage/NFTNavbar";
+// import NFTNavbar from "../Homepage/NFTNavbar";
 import "../Styles/UploadPageStyles/Upload.css";
 import {
   TextField,
@@ -347,7 +347,7 @@ const Upload = () => {
   };
   return (
     <>
-      <NFTNavbar />
+      {/* <NFTNavbar /> */}
       <h1
         className="text-center my-3"
         style={{

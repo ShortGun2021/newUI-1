@@ -151,72 +151,12 @@ function DesktopviewNav() {
                     <MdPerson style={{ fontSize: "25px" }} />
                   </Button>
                 </Link>
-                <Button
-                  className="navItems"
-                  variant="light"
-                  onClick={handleShow}
-                >
-                  <MdOutlineAccountBalanceWallet style={{ fontSize: "25px" }} />
-                </Button>
+                <ConnectWallet />
               </Navbar.Collapse>
             </div>
           </div>
         </Container>
       </Navbar>
-
-      <Modal style={{ height: "715px" }} show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title className="show-grid">
-            <ListGroup horizontal>
-              <ListGroup.Item>
-                <Image
-                  rounded="true"
-                  src="https://avatars.githubusercontent.com/u/55938092?v=4"
-                  height="35"
-                  width="35"
-                ></Image>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <Dropdown>
-                  <Dropdown.Toggle variant="light" id="dropdown-basic">
-                    Favourites
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action1</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Action2</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Action3</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <p>0x12a4v5fh</p>
-              </ListGroup.Item>
-            </ListGroup>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <ConnectWallet />
-          <Card className="text-center" style={{ marginBottom: "300px" }}>
-            <Card.Body>
-              <Card.Title>Total Balance</Card.Title>
-              <Card.Text>$0.00 USD</Card.Text>
-            </Card.Body>
-            <Card.Footer className="text-muted">
-              <div className="d-grid gap-2">
-                <Button
-                  style={{ backgroundColor: "#6739B7", fontWeight: "700" }}
-                  onClick={openWallet}
-                >
-                  Add funds
-                </Button>
-              </div>
-            </Card.Footer>
-          </Card>
-        </Modal.Body>
-      </Modal>
     </>
   );
 }

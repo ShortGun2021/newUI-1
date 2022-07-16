@@ -25,6 +25,7 @@ import {
   SolanaMobileWalletAdapter,
 } from "@solana-mobile/wallet-adapter-mobile";
 // import TransferSol from "./TransferSol.tsx";
+import WalletDetails from "./WalletDetails.tsx";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
@@ -38,11 +39,7 @@ const openWallet = () => {
 const ConnectWallet: FC = () => {
   navigate = useNavigate();
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
-  const { publicKey } = useWallet();
 
   const network = WalletAdapterNetwork.Devnet;
 
@@ -73,9 +70,7 @@ const ConnectWallet: FC = () => {
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider>
-            <Button className="navItems" variant="light" onClick={handleShow}>
-              <MdOutlineAccountBalanceWallet style={{ fontSize: "25px" }} />
-            </Button>
+            <WalletDetails />
             <WalletMultiButton />
             {/* <WalletDisconnectButton /> */}
             {/* Your app's components go here, nested within the context providers. */}
@@ -83,53 +78,6 @@ const ConnectWallet: FC = () => {
           </WalletModalProvider>
         </WalletProvider>
       </ConnectionProvider>
-      <Modal
-        style={{ height: "715px" }}
-        className="modalBox"
-        show={show}
-        onHide={handleClose}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title className="show-grid">
-            <ListGroup horizontal>
-              <ListGroup.Item>
-                <Image
-                  rounded
-                  src="https://avatars.githubusercontent.com/u/55938092?v=4"
-                  height="35"
-                  width="35"
-                ></Image>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <p>
-                  {publicKey
-                    ? publicKey.toBase58()
-                    : "Please Connect To Your Wallet"}
-                </p>
-              </ListGroup.Item>
-            </ListGroup>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Card className="text-center" style={{ marginBottom: "300px" }}>
-            <Card.Body>
-              <Card.Title>Total Balance</Card.Title>
-              <Card.Text>$0.00 USD</Card.Text>
-            </Card.Body>
-            <Card.Footer className="text-muted">
-              <div className="d-grid gap-2">
-                <Button
-                  style={{ backgroundColor: "#6739B7", fontWeight: "700" }}
-                  onClick={openWallet}
-                >
-                  Add funds
-                </Button>
-              </div>
-            </Card.Footer>
-          </Card>
-        </Modal.Body>
-      </Modal>
     </>
   );
 };
