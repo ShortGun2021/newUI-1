@@ -50,7 +50,6 @@ const Upload = () => {
         {
           address: "",
           verified: true,
-          share: "", // int
         },
       ],
     },
@@ -127,7 +126,7 @@ const Upload = () => {
         ...meta.properties,
         creators: [
           ...meta.properties.creators,
-          { address: "", verified: true, share: "" },
+          { address: "", verified: true },
         ],
       },
     });
@@ -194,8 +193,7 @@ const Upload = () => {
         !meta.attributes[i].value ||
         !meta.properties.files[i].type ||
         !meta.properties.category ||
-        !meta.properties.creators[i].address ||
-        !meta.properties.creators[i].share
+        !meta.properties.creators[i].address
       ) {
         temp = false;
       }
@@ -268,7 +266,6 @@ const Upload = () => {
           },
           creators: {
             ...newmeta.properties.creators[0],
-            share: parseInt(newmeta.properties.creators[0].share),
           },
         },
       };
@@ -314,8 +311,8 @@ const Upload = () => {
       // };
       axios
         .post(
-          // "https://shortgun-backend.herokuapp.com/nft/createNFT",
-          "http://localhost:5000/nft/createNFT",
+          "https://shortgun-backend.herokuapp.com/nft/createNFT",
+          // "http://localhost:5000/nft/createNFT",
           {
             nftUrl: metaDataUrl,
             nftImageUrl: imageUrl,
@@ -563,13 +560,6 @@ const Upload = () => {
                           label="Address"
                           value={x.address}
                           name="address"
-                          onChange={(e) => onchangeAddress(e, i)}
-                          required
-                        />
-                        <TextField
-                          label="Share"
-                          value={x.share}
-                          name="share"
                           onChange={(e) => onchangeAddress(e, i)}
                           required
                         />
