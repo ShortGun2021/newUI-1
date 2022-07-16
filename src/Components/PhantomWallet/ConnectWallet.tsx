@@ -1,9 +1,9 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useMemo, useState } from "react";
+import { Button, Card, Modal, ListGroup, Image } from "react-bootstrap";
 import {
   ConnectionProvider,
   WalletProvider,
   useWallet,
-  useConnection,
 } from "@solana/wallet-adapter-react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import {
@@ -12,8 +12,6 @@ import {
   PhantomWalletAdapter,
   SlopeWalletAdapter,
   SolflareWalletAdapter,
-  SolletExtensionWalletAdapter,
-  SolletWalletAdapter,
   TorusWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import {
@@ -26,18 +24,26 @@ import {
   createDefaultAuthorizationResultCache,
   SolanaMobileWalletAdapter,
 } from "@solana-mobile/wallet-adapter-mobile";
-
-import TransferSol from "./TransferSol.tsx";
+// import TransferSol from "./TransferSol.tsx";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 // Default styles that can be overridden by your app
 require("@solana/wallet-adapter-react-ui/styles.css");
+let navigate;
+const openWallet = () => {
+  navigate("/wallet");
+};
 
-export const ConnectWallet: FC = () => {
+const ConnectWallet: FC = () => {
+  navigate = useNavigate();
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
-  const { connection } = useConnection();
-  console.log(connection);
   const { publicKey } = useWallet();
-  if (publicKey) console.log(publicKey.toBase58());
+
   const network = WalletAdapterNetwork.Devnet;
 
   // You can also provide a custom RPC endpoint.
@@ -63,16 +69,68 @@ export const ConnectWallet: FC = () => {
   );
 
   return (
-    <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
-        <WalletModalProvider>
-          <WalletMultiButton />
-          <WalletDisconnectButton />
-          {/* Your app's components go here, nested within the context providers. */}
-          <TransferSol />
-        </WalletModalProvider>
-      </WalletProvider>
-    </ConnectionProvider>
+    <>
+      <ConnectionProvider endpoint={endpoint}>
+        <WalletProvider wallets={wallets} autoConnect>
+          <WalletModalProvider>
+            <Button className="navItems" variant="light" onClick={handleShow}>
+              <MdOutlineAccountBalanceWallet style={{ fontSize: "25px" }} />
+            </Button>
+            <WalletMultiButton />
+            {/* <WalletDisconnectButton /> */}
+            {/* Your app's components go here, nested within the context providers. */}
+            {/* <TransferSol /> */}
+          </WalletModalProvider>
+        </WalletProvider>
+      </ConnectionProvider>
+      <Modal
+        style={{ height: "715px" }}
+        className="modalBox"
+        show={show}
+        onHide={handleClose}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title className="show-grid">
+            <ListGroup horizontal>
+              <ListGroup.Item>
+                <Image
+                  rounded
+                  src="https://avatars.githubusercontent.com/u/55938092?v=4"
+                  height="35"
+                  width="35"
+                ></Image>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                <p>
+                  {publicKey
+                    ? publicKey.toBase58()
+                    : "Please Connect To Your Wallet"}
+                </p>
+              </ListGroup.Item>
+            </ListGroup>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Card className="text-center" style={{ marginBottom: "300px" }}>
+            <Card.Body>
+              <Card.Title>Total Balance</Card.Title>
+              <Card.Text>$0.00 USD</Card.Text>
+            </Card.Body>
+            <Card.Footer className="text-muted">
+              <div className="d-grid gap-2">
+                <Button
+                  style={{ backgroundColor: "#6739B7", fontWeight: "700" }}
+                  onClick={openWallet}
+                >
+                  Add funds
+                </Button>
+              </div>
+            </Card.Footer>
+          </Card>
+        </Modal.Body>
+      </Modal>
+    </>
   );
 };
 
