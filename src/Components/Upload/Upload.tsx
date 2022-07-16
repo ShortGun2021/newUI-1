@@ -535,7 +535,7 @@ const Upload = () => {
       </Box>
 
       <Button variant="contained" onClick={Ar} size="large">
-        Upload
+        Create NFT
       </Button>
     </div>
     </>
