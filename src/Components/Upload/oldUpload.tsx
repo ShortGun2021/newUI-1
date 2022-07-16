@@ -28,43 +28,135 @@ const Upload = () => {
     description: "",
     seller_fee_basis_points: "",
     image: "",
-    trait_type: "",
-    value: "",
-
-    walletAddress: "",
-    category: "",
-    files: [
+    attributes: [
       {
-        uri: "",
-        type: "", //check it for different types such as video, gif, also list form
+        trait_type: "",
+        value: "",
       },
     ],
+
+    properties: {
+      files: [
+        {
+          uri: "",
+          type: "", //check it for different types such as video, gif, also list form
+        },
+      ],
+
+      category: "", //current setting as image
+
+      //what if creators need to add like trait type, list form
+      creators: [
+        {
+          address: "",
+          verified: true,
+        },
+      ],
+    },
   });
 
   // ---------------------metadata ---------------
 
-  const onChangeData = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setmeta({
       ...meta,
       [e.target.name]: e.target.value,
     });
   };
 
+  const onChangeSeller = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setmeta({
+      ...meta,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const onChangeAttr = (e, index) => {
+    console.log(index, e.target.name);
+    const val = [...meta.attributes];
+    val[index][e.target.name] = e.target.value;
+    setmeta({
+      ...meta,
+      attributes: val,
+    });
+  };
+
   const onChangePropType = (e: React.ChangeEvent<HTMLInputElement>) => {
     setmeta({
       ...meta,
-      files: [
-        {
-          ...meta.files[0],
-          [e.target.name]: e.target.value,
-        },
-      ],
+      properties: {
+        ...meta.properties,
+        files: [
+          {
+            ...meta.properties.files[0],
+            [e.target.name]: e.target.value,
+          },
+        ],
+      },
+    });
+  };
+
+  const onchangeCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setmeta({
+      ...meta,
+      properties: {
+        ...meta.properties,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+  const onchangeAddress = (e, index) => {
+    console.log(index, e.target.name);
+    const val = [...meta.properties.creators];
+    val[index][e.target.name] = e.target.value;
+
+    setmeta({
+      ...meta,
+      properties: {
+        ...meta.properties,
+        creators: val,
+      },
+    });
+  };
+
+  const onclickadd = () => {
+    setmeta({
+      ...meta,
+      properties: {
+        ...meta.properties,
+        creators: [
+          ...meta.properties.creators,
+          { address: "", verified: true },
+        ],
+      },
     });
   };
 
   const onclick = () => {
     setmeta({
       ...meta,
+      attributes: [...meta.attributes, { trait_type: "", value: "" }],
+    });
+  };
+
+  const onremoveAttr = (index) => {
+    const val = [...meta.attributes];
+    val.splice(index, 1);
+    setmeta({
+      ...meta,
+      attributes: val,
+    });
+  };
+
+  const removeadd = (index) => {
+    const val = [...meta.properties.creators];
+    val.splice(index, 1);
+    setmeta({
+      ...meta,
+      properties: {
+        ...meta.properties,
+        creators: val,
+      },
     });
   };
 
@@ -75,36 +167,37 @@ const Upload = () => {
   ) => {
     // data for submit
 
-    // console.log(imageList);
-    // console.log(addUpdateIndex);
+    console.log(imageList);
+    console.log(addUpdateIndex);
     setImages(imageList as never[]);
 
     const im = imageList[0];
     let d = im[Object.keys(im)[0]];
-    // console.log(d);
+    console.log(d);
     setData(d);
   };
   // ----------------------------------------------------------------------------------
   // rwearve
   const Ar = async () => {
     //optionally check if fields are empty
-    // console.log(meta);
-    // console.log(meta.symbol);
-    // console.log(meta.description);
-    // console.log(meta.seller_fee_basis_points);
-    // console.log(meta.image);
+    console.log(meta);
+    console.log(meta.symbol);
+    console.log(meta.description);
+    console.log(meta.seller_fee_basis_points);
+    console.log(meta.image);
     // console.log(meta.attributes[0].trait_type);
-
-    if (
-      !meta.trait_type ||
-      !meta.value ||
-      !meta.files[0] ||
-      !meta.category ||
-      !meta.walletAddress
-    ) {
-      temp = false;
+    console.log(meta.attributes.length);
+    for (let i = 0; i < meta.attributes.length; i++) {
+      if (
+        !meta.attributes[i].trait_type ||
+        !meta.attributes[i].value ||
+        !meta.properties.files[i].type ||
+        !meta.properties.category ||
+        !meta.properties.creators[i].address
+      ) {
+        temp = false;
+      }
     }
-
     if (
       !meta.name ||
       !meta.symbol ||
@@ -122,12 +215,12 @@ const Upload = () => {
         logging: false,
       });
       const image1 = Buffer.from(data.split(",")[1], "base64");
-      // console.log("done");
+      console.log("done");
       console.log("connected");
       const transaction = await arweave.createTransaction({
         data: image1,
       });
-      // console.log(transaction);
+      console.log(transaction);
       transaction.addTag("Content-Type", "image/png");
 
       console.log("wallet done");
@@ -147,17 +240,17 @@ const Upload = () => {
       // console.log('succesfull')
 
       const response = await arweave.transactions.post(transaction);
-      // console.log(response);
+      console.log(response);
 
       const id = transaction.id;
       const imageUrl = id ? `https://arweave.net/${id}` : undefined;
       console.log("imageUrl", imageUrl);
-      // console.log("Image Sucessfully Uploaded");
+      console.log("Image Sucessfully Uploaded");
 
       // ------------------ metadata function------
-      // console.log("Uploading metadata");
+      console.log("Uploading metadata");
 
-      // console.log("fetching image urls");
+      console.log("fetching image urls");
       const newmeta = meta;
 
       // making changes in the types and embedding image urls in the metadata.
@@ -165,14 +258,19 @@ const Upload = () => {
         ...newmeta,
         image: imageUrl,
         seller_fee_basis_points: parseInt(newmeta.seller_fee_basis_points),
-
-        files: {
-          ...newmeta.files[0],
-          uri: imageUrl,
+        properties: {
+          ...newmeta.properties,
+          files: {
+            ...newmeta.properties.files[0],
+            uri: imageUrl,
+          },
+          creators: {
+            ...newmeta.properties.creators[0],
+          },
         },
       };
 
-      // console.log("successfully fetched image urls");
+      console.log("successfully fetched image urls");
       console.log("meta is ready");
       const metadata = JSON.stringify(metadata1); //converting into string
 
@@ -200,13 +298,17 @@ const Upload = () => {
       const metaDataUrl = "https://arweave.net/" + metaTransaction.id;
 
       let response2 = await arweave.transactions.post(metaTransaction);
-      // console.log(response2);
+      console.log(response2);
 
-      // console.log("successfully uploaded image and metadata");
+      console.log("successfully uploaded image and metadata");
 
       // -------------------------------
       //saving the arweave transaction and nft details to DB
-
+      // const config = {
+      //   header: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
       axios
         .post(
           "https://shortgun-backend.herokuapp.com/nft/createNFT",
@@ -218,10 +320,10 @@ const Upload = () => {
             nftSymbol: meta.symbol,
             nftDescription: meta.description,
             seller_fee_basis_points: meta.seller_fee_basis_points,
-            nftTraitType: meta.trait_type,
-            nftValue: meta.value,
-            nftCategory: meta.category,
-            walletAddress: meta.walletAddress,
+            nftTraitType: meta.attributes[0].trait_type,
+            nftValue: meta.attributes[0].value,
+            nftCategory: meta.properties.category,
+            walletAddress: meta.properties.creators[0].address,
           },
           {
             headers: {
@@ -284,7 +386,7 @@ const Upload = () => {
                   {...dragProps}
                   style={{ backgroundColor: "#6739b7" }}
                 >
-                  Click or Drop your NFT
+                  Click or Drop here
                 </Button>
                 &nbsp;
                 {imageList.map((image, index) => (
@@ -324,109 +426,169 @@ const Upload = () => {
         <Box>
           <div>
             {/* cl */}
+
             <Box m={3}>
               <Stack direction="row" spacing={2} justifyContent="center">
                 <TextField
-                  label="NFT Name"
+                  label="Name"
                   value={meta.name}
                   name="name"
-                  onChange={onChangeData}
+                  onChange={onChangeName}
                   // required={true}
                   required
                 />
                 <TextField
-                  label="NFT Symbol"
+                  label="symbol"
                   value={meta.symbol}
                   name="symbol"
-                  onChange={onChangeData}
+                  onChange={onChangeName}
                   required
                 />
               </Stack>
             </Box>
+
             <Box m={3}>
               <Stack direction="row" spacing={2} justifyContent="center">
                 <TextField
-                  label="NFT Description"
+                  label="description"
                   value={meta.description}
                   name="description"
-                  onChange={onChangeData}
+                  onChange={onChangeName}
                   required
                 />
                 <TextField
-                  label="Seller Fee Basis Point"
+                  label="seller fee basis points"
                   value={meta.seller_fee_basis_points}
                   name="seller_fee_basis_points"
-                  onChange={onChangeData}
+                  onChange={onChangeSeller}
                   required
                 />
               </Stack>
             </Box>
+            {meta.attributes.map((x, i) => {
+              return (
+                <>
+                  <div key={i}>
+                    <Box m={2}>
+                      <Stack
+                        direction="row"
+                        spacing={2}
+                        justifyContent="center"
+                      >
+                        <TextField
+                          placeholder="eg. Eyes"
+                          label="trait_type"
+                          value={x.trait_type}
+                          name="trait_type"
+                          onChange={(e) => onChangeAttr(e, i)}
+                          required
+                        />
+                        <TextField
+                          placeholder="eg. Red"
+                          label="value"
+                          value={x.value}
+                          name="value"
+                          onChange={(e) => onChangeAttr(e, i)}
+                          required
+                        />
 
-            <Box>
-              <div>
-                <Box m={2}>
-                  <Stack direction="row" spacing={2} justifyContent="center">
-                    <TextField
-                      placeholder="eg. Eyes"
-                      label="Trait Type"
-                      value={meta.trait_type}
-                      name="trait_type"
-                      onChange={onChangeData}
-                      required
-                    />
-                    <TextField
-                      placeholder="Price"
-                      label="Value/Price"
-                      value={meta.value}
-                      name="value"
-                      onChange={onChangeData}
-                      required
-                    />
-                  </Stack>
-                </Box>
-              </div>
-            </Box>
+                        {i > 0 ? (
+                          <Button
+                            size="small"
+                            variant="contained"
+                            onClick={onremoveAttr}
+                            style={{ backgroundColor: "#6739b7" }}
+                          >
+                            -
+                          </Button>
+                        ) : (
+                          <Button
+                            size="small"
+                            variant="contained"
+                            onClick={onclick}
+                            style={{ backgroundColor: "#6739b7" }}
+                          >
+                            +
+                          </Button>
+                        )}
+                      </Stack>
+                    </Box>
+                  </div>
+                </>
+              );
+            })}
 
             {/* Properties */}
+            {meta.properties.files.map((v, z) => {
+              return (
+                <>
+                  <Box m={3}>
+                    <Stack direction="row" spacing={2} justifyContent="center">
+                      <TextField
+                        placeholder="image/png"
+                        label="type"
+                        value={meta.properties.files[0].type}
+                        name="type"
+                        onChange={onChangePropType}
+                        required
+                      />
+                      <TextField
+                        label="category"
+                        placeholder="image"
+                        value={meta.properties.category}
+                        name="category"
+                        onChange={onchangeCategory}
+                        required
+                      />
+                    </Stack>
+                  </Box>
+                </>
+              );
+            })}
 
-            <Box>
-              <Box m={3}>
-                <Stack direction="row" spacing={2} justifyContent="center">
-                  <TextField
-                    placeholder="image/png"
-                    label="File Type"
-                    value={meta.files[0].type}
-                    name="type"
-                    onChange={onChangePropType}
-                    required
-                  />
-                  <TextField
-                    label="Category of NFT"
-                    placeholder="image"
-                    value={meta.category}
-                    name="category"
-                    onChange={onChangeData}
-                    required
-                  />
-                </Stack>
-              </Box>
-            </Box>
+            {meta.properties.creators.map((x, i) => {
+              return (
+                <>
+                  <div key={i}>
+                    <Box m={2}>
+                      <Stack
+                        direction="row"
+                        spacing={2}
+                        justifyContent="center"
+                      >
+                        <TextField
+                          label="Address"
+                          value={x.address}
+                          name="address"
+                          onChange={(e) => onchangeAddress(e, i)}
+                          required
+                        />
 
-            <Box>
-              <div>
-                <Box m={2}>
-                  <Stack direction="row" spacing={2} justifyContent="center">
-                    <TextField
-                      label="Wallet Address"
-                      value={meta.walletAddress}
-                      name="walletAddress"
-                      onChange={onChangeData}
-                      required
-                    />
-                  </Stack>
-                </Box>
-              </div>
-            </Box>
+                        {i > 0 ? (
+                          <Button
+                            size="small"
+                            variant="contained"
+                            onClick={removeadd}
+                            style={{ backgroundColor: "#6739b7" }}
+                          >
+                            -
+                          </Button>
+                        ) : (
+                          <Button
+                            size="small"
+                            variant="contained"
+                            onClick={onclickadd}
+                            style={{ backgroundColor: "#6739b7" }}
+                          >
+                            +
+                          </Button>
+                        )}
+                      </Stack>
+                    </Box>
+                  </div>
+                </>
+              );
+            })}
           </div>
         </Box>
 

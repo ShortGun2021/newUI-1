@@ -32,10 +32,7 @@ const Cards = ({ nftData, card, index }) => {
         onClick={() => {
           navigate('/nft-card', {
             state: {
-              nftImage: nftData[index].nftImageUrl,
-              nftName: nftData[index].nftName,
-              nftOwnerName: nftData[index].nftDescription,
-              nftId: nftData[index]._id,
+              nftData: nftData[index]
             },
           })
         }}
