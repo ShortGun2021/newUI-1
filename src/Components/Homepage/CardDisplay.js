@@ -32,9 +32,9 @@ const Cards = ({ nftData, card, index }) => {
         onClick={() => {
           navigate('/nft-card', {
             state: {
-              nftImage: `data:image/png;base64,${nftData[index].nftImgBase64}`,
+              nftImage: nftData[index].nftImageUrl,
               nftName: nftData[index].nftName,
-              nftOwnerName: nftData[index].nftCreatorDetails,
+              nftOwnerName: nftData[index].nftDescription,
               nftId: nftData[index]._id,
             },
           })
@@ -43,7 +43,7 @@ const Cards = ({ nftData, card, index }) => {
         {/* <Card.Img variant="top" src={card.image} /> nftData && nftData[0].nftImgBase64 */}
         <Card.Img
           variant="top"
-          src={`data:image/png;base64,${nftData[index].nftImgBase64}`}
+          src={nftData[index].nftImageUrl}
         />
         <Card.Body>
           <Card.Title>
@@ -51,18 +51,18 @@ const Cards = ({ nftData, card, index }) => {
               <Image
                 rounded="true"
                 // src={card.avatar}
-                src={`data:image/png;base64,${nftData[index].nftImgBase64}`}
+                src={nftData[index].nftImageUrl}
                 height="35"
                 width="35"
               ></Image>{' '}
               <span className="card-nft-name">{nftData[index].nftName}</span>
-              <div className="row">
-                {' '}
-                <span className="card-owner-name">
-                  {nftData[index].nftCreatorDetails}
-                </span>
-              </div>
             </h5>
+            <div className="row">
+              {' '}
+              <span className="">
+                {nftData[index].nftDescription}
+              </span>
+            </div>
             <button className="card-goinfo-btn">
               <GoInfo />
             </button>
