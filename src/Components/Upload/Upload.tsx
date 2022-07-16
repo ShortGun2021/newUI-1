@@ -2,6 +2,7 @@ import React from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import Arweave from "arweave";
 import { Buffer } from "buffer";
+import NFTNavbar from '../Homepage/NFTNavbar';
 import '../Styles/UploadPageStyles/Upload.css'
 import {
   TextField,
@@ -306,9 +307,12 @@ const Upload = () => {
     }
   };
   return (
+    <>
+    <NFTNavbar/>
+    <h1 className="text-center my-3">Create NFT</h1>
     <div className="upload-header">
       {/* ----------------------------Image Uploading Section---------------------- */}
-
+    
       <Container maxWidth="sm">
         <ImageUploading
           multiple
@@ -534,6 +538,7 @@ const Upload = () => {
         Upload
       </Button>
     </div>
+    </>
   );
 };
 
