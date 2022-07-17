@@ -23,19 +23,20 @@ require('bootstrap/dist/css/bootstrap.min.css')
 
 const Container2 = (props) => {
   const navigate = useNavigate()
-  const [nftData, setNftData] = useState([{}])
-  useEffect(() => {
-    axios
-      .get('https://shortgun-backend.herokuapp.com/nft/getNFTs')
-      .then((response) => {
-        console.log(response.data)
-        setNftData(response.data)
-      })
-      .catch((error) => {
-        console.log(error)
-        window.alert('Internal Server Error ')
-      })
-  }, [])
+  console.log(props)
+  // const [nftData, setNftData] = useState([{}])
+  // useEffect(() => {
+  //   axios
+  //     .get('https://shortgun-backend.herokuapp.com/nft/getNFTs')
+  //     .then((response) => {
+  //       console.log(response.data)
+  //       setNftData(response.data)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //       window.alert('Internal Server Error ')
+  //     })
+  // }, [])
 
   //bid placing
   const submitHandler = async (id) => {
@@ -135,11 +136,11 @@ const Container2 = (props) => {
       </div>
       <div style={{ margin: '2%' }}>
         <div>
-          <h3 style={{ color: '#6739B7' }}>{props.nftName}</h3>
-          <h2>#214</h2>
+          <h3 style={{ color: '#6739B7' }}>{props.nftData.nftName}</h3>
+          <h4>ID: {props.nftData._id}</h4>
           <h5>
-            Owned by{' '}
-            <span style={{ color: '#6739B7' }}>{props.nftOwnerName}</span>{' '}
+            Description:{' '}
+            <span style={{ color: '#6739B7' }}>{props.nftData.nftDescription}</span>{' '}
             <span>
               <FaHeart />
             </span>
