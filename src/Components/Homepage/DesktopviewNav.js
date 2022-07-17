@@ -121,6 +121,7 @@ function DesktopviewNav() {
                       Explore
                     </Nav.Link>
                   </Link>
+                  <Link style={{ textDecoration: 'none' }} to="/admin">
                   <Nav.Link
                     style={{
                       color: '#2B2B2B',
@@ -132,6 +133,7 @@ function DesktopviewNav() {
                   >
                     Create
                   </Nav.Link>
+                  </Link>
                   <Link style={{ textDecoration: 'none' }} to="/collections">
                     <Nav.Link
                       style={{

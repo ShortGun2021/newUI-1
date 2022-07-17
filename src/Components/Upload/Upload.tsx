@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import ImageUploading, { ImageListType } from 'react-images-uploading'
 import Arweave from 'arweave'
 import { Buffer } from 'buffer'
+import NFTNavbar from '../Homepage/NFTNavbar'
 import '../Styles/UploadPageStyles/Upload.css'
 import IconButton from '@mui/material/IconButton'
 import { MdAddPhotoAlternate, MdDeleteForever } from 'react-icons/md'
 import { GrAdd } from 'react-icons/gr'
 import { IoIosRemove } from 'react-icons/io'
+import { IoAddSharp } from 'react-icons/io5'
 import {
   TextField,
   Box,
@@ -400,9 +402,18 @@ const Upload = () => {
 
   return (
     <div style={{ fontFamily: 'Poppins' }}>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <h1 style={{ margin: '20px auto ' }}>Create NFT</h1>
-      </div>
+      <NFTNavbar />
+      <h1
+        className="text-center my-3"
+        style={{
+          fontFamily: 'Poppins',
+          fontStyle: 'normal',
+          fontWeight: '700',
+        }}
+      >
+        Create NFT
+      </h1>
+
       <div className="upload-header">
         {/* ----------------------------Image Uploading Section---------------------- */}
 
@@ -558,17 +569,21 @@ const Upload = () => {
                           <Button
                             size="small"
                             onClick={onremoveAttr}
-                            sx={{ border: '1px solid black' }}
+                            style={{ backgroundColor: '#6739b7' }}
                           >
-                            <IoIosRemove style={{ color: 'black' }} />
+                            <IoIosRemove
+                              style={{ color: 'white', fontSize: '25px' }}
+                            />
                           </Button>
                         ) : (
                           <Button
-                            sx={{ border: '1px solid black' }}
                             size="small"
                             onClick={onclick}
+                            style={{ backgroundColor: '#6739b7' }}
                           >
-                            <GrAdd style={{ color: '' }} />
+                            <IoAddSharp
+                              style={{ color: 'white', fontSize: '25px' }}
+                            />
                           </Button>
                         )}
                       </Stack>
@@ -635,17 +650,21 @@ const Upload = () => {
                           <Button
                             size="small"
                             onClick={removeadd}
-                            sx={{ border: '1px solid black' }}
+                            style={{ backgroundColor: '#6739b7' }}
                           >
-                            <IoIosRemove style={{ color: 'black' }} />
+                            <IoIosRemove
+                              style={{ color: 'white', fontSize: '25px' }}
+                            />
                           </Button>
                         ) : (
                           <Button
-                            sx={{ border: '1px solid black' }}
                             size="small"
                             onClick={onclickadd}
+                            style={{ backgroundColor: '#6739b7' }}
                           >
-                            <GrAdd style={{ color: '' }} />
+                            <IoAddSharp
+                              style={{ color: 'white', fontSize: '25px' }}
+                            />
                           </Button>
                         )}
                       </Stack>
@@ -657,8 +676,14 @@ const Upload = () => {
           </div>
         </Box>
 
-        <Button variant="contained" className="mb-4" onClick={Ar} size="large">
-          Upload
+        <Button
+          variant="contained"
+          style={{ backgroundColor: '#6739b7' }}
+          className="mb-4"
+          onClick={Ar}
+          size="large"
+        >
+          Create NFT
         </Button>
       </div>
     </div>
