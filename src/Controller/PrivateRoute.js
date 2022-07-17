@@ -1,11 +1,12 @@
 import React from "react";
-import { useWallet, useConnection } from "@solana/wallet-adapter-react";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { Navigate } from "react-router-dom";
 
 const useAuth = () => {
   const { publicKey } = useWallet();
-
-  return publicKey?.toBase58();
+  const user = localStorage.getItem("user");
+  if (user) return publicKey?.toBase58();
+  else return false;
 };
 const PrivateRoute = ({ children }) => {
   //   const Navigate = useNavigate();

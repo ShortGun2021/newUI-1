@@ -1,35 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-// import FormControl from "@material-ui/core/FormControl";
-import Checkbox from "@mui/material/Checkbox";
+import { InputAdornment } from "@mui/material";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
-import { IconButton, InputAdornment } from "@mui/material";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 const theme = createTheme();
 
 const Login = () => {
+  const { publicKey } = useWallet();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState("");
+  const [publicID, setpublicID] = useState("");
 
-  const handleShowPassword = () => {
-    setShowPassword((show) => !show);
-  };
+  useEffect(() => {
+    setpublicID(publicKey?.toBase58());
+  }, [publicKey]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,15 +38,14 @@ const Login = () => {
         "Content-Type": "application/json",
       },
     };
-    if (email !== "" && password !== "") {
+    if (publicKey) {
       // console.log(email,password);
       axios
         .post(
           "https://shortgun-backend.herokuapp.com/user/signin",
           // "http://localhost:5000/user/signin",
           {
-            email,
-            password,
+            publicID,
           },
           config
         )
@@ -100,33 +97,16 @@ const Login = () => {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              id="password"
-              autoComplete="current-password"
-              type={showPassword ? "text" : "password"}
-              label="Password"
-              onChange={(e) => setPassword(e.target.value)}
+              type={"text"}
+              label="Public Id"
+              value={publicID}
               InputProps={{
+                readOnly: true,
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton onClick={handleShowPassword} edge="end">
-                      {showPassword ? (
-                        <VisibilityOffIcon />
-                      ) : (
-                        <VisibilityIcon />
-                      )}
-                    </IconButton>
+                    <WalletMultiButton
+                      startIcon={<MdOutlineAccountBalanceWallet />}
+                    />
                   </InputAdornment>
                 ),
               }}
@@ -140,15 +120,11 @@ const Login = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              style={{backgroundColor:"#6739b7"}}
+              style={{ backgroundColor: "#6739b7" }}
             >
               Sign In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="/">Forgot Password ?</Link>
-              </Grid>
-            </Grid>{" "}
+
             <Grid container sx={{ mt: 2 }}>
               <Grid item>
                 <Link href="/register">Don't have an account? Sign Up</Link>
