@@ -5,7 +5,12 @@ import("../Styles/HomePageStyles/NFTNavbar.css");
 
 require("bootstrap/dist/css/bootstrap.min.css");
 const useAuth = () => {
-  return localStorage.getItem("user");
+  if (
+    window.location.pathname === "/login" ||
+    window.location.pathname === "/register"
+  )
+    return false;
+  else return true;
 };
 
 export default function App() {

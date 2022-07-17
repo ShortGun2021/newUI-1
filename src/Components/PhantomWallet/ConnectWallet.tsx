@@ -1,9 +1,7 @@
-import React, { FC, useMemo, useState } from "react";
-import { Button, Card, Modal, ListGroup, Image } from "react-bootstrap";
+import React, { FC, useMemo } from "react";
 import {
   ConnectionProvider,
   WalletProvider,
-  useWallet,
 } from "@solana/wallet-adapter-react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import {
@@ -16,29 +14,20 @@ import {
 } from "@solana/wallet-adapter-wallets";
 import {
   WalletModalProvider,
-  WalletDisconnectButton,
   WalletMultiButton,
 } from "@solana/wallet-adapter-react-ui";
-import { clusterApiUrl, PublicKey } from "@solana/web3.js";
+import { clusterApiUrl } from "@solana/web3.js";
 import {
   createDefaultAuthorizationResultCache,
   SolanaMobileWalletAdapter,
 } from "@solana-mobile/wallet-adapter-mobile";
 // import TransferSol from "./TransferSol.tsx";
 import WalletDetails from "./WalletDetails.tsx";
-import { MdOutlineAccountBalanceWallet } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
 
 // Default styles that can be overridden by your app
 require("@solana/wallet-adapter-react-ui/styles.css");
-let navigate;
-const openWallet = () => {
-  navigate("/wallet");
-};
 
 const ConnectWallet: FC = () => {
-  navigate = useNavigate();
-
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
 
   const network = WalletAdapterNetwork.Devnet;

@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 
 let navigate;
-const openWallet = () => {
-  navigate("/wallet");
-};
 const WalletDetails: FC = () => {
+  const openWallet = () => {
+    handleClose();
+    navigate("/wallet");
+  };
   const [balance, setBalance] = useState(0);
   const { connection } = useConnection();
   const { publicKey } = useWallet();
@@ -17,6 +18,7 @@ const WalletDetails: FC = () => {
     if (publicKey) {
       const walletBalance = await connection.getBalance(publicKey);
       setBalance(walletBalance);
+      localStorage.setItem("publicKey", publicKey.toBase58());
     }
     console.log(balance);
   };
