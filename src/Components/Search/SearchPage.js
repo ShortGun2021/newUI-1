@@ -1,7 +1,7 @@
-import React from 'react'
-import NFTNavbar from './SearchNavbar'
-import SearchCategories from './SearchCategories'
-import Footer from '../Homepage/Footer'
+import React from "react";
+import NFTNavbar from "./SearchNavbar";
+import SearchCategories from "./SearchCategories";
+import Footer from "../Homepage/Footer";
 const SearchPage = () => {
   return (
     <>
@@ -9,7 +9,7 @@ const SearchPage = () => {
       <SearchCategories />
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default SearchPage
+export default SearchPage;

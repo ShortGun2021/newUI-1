@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -17,26 +17,23 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
-import { IconButton, InputAdornment } from "@mui/material";
+import { InputAdornment } from "@mui/material";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 const theme = createTheme();
 
 const Register = () => {
+  const { publicKey } = useWallet();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [publicID, setpublicID] = useState("");
 
-  const [showPassword, setShowPassword] = useState("");
-  const [showPassword2, setShowPassword2] = useState("");
-
-  const handleShowPassword = () => {
-    setShowPassword((show) => !show);
-  };
-  const handleShowPassword2 = () => {
-    setShowPassword2((show) => !show);
-  };
+  useEffect(() => {
+    setpublicID(publicKey?.toBase58());
+  }, [publicKey]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,17 +43,16 @@ const Register = () => {
         "Content-Type": "application/json",
       },
     };
-    if (username !== "" && email !== "" && password === confirmPassword) {
+    if (username !== "" && email !== "" && publicKey) {
       // console.log(email,password);
       axios
         .post(
           "https://shortgun-backend.herokuapp.com/user/register",
-          // "http://localhost:5000/user/signin",
+          // "http://localhost:5000/user/register",
           {
             username,
             email,
-            password,
-            confirmPassword,
+            publicID,
           },
           config
         )
@@ -128,46 +124,16 @@ const Register = () => {
               margin="normal"
               required
               fullWidth
-              name="password"
-              id="password"
-              autoComplete="current-password"
-              type={showPassword ? "text" : "password"}
-              label="Password"
-              onChange={(e) => setPassword(e.target.value)}
+              type={"text"}
+              label="Public Id"
+              value={publicID}
               InputProps={{
+                readOnly: true,
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton onClick={handleShowPassword} edge="end">
-                      {showPassword ? (
-                        <VisibilityOffIcon />
-                      ) : (
-                        <VisibilityIcon />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="confirmpassword"
-              id="password"
-              autoComplete="confirm-password"
-              type={showPassword2 ? "text" : "password"}
-              label="Confirm Password"
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={handleShowPassword2} edge="end">
-                      {showPassword2 ? (
-                        <VisibilityOffIcon />
-                      ) : (
-                        <VisibilityIcon />
-                      )}
-                    </IconButton>
+                    <WalletMultiButton
+                      startIcon={<MdOutlineAccountBalanceWallet />}
+                    />
                   </InputAdornment>
                 ),
               }}
@@ -181,7 +147,7 @@ const Register = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              style={{backgroundColor:"#6739b7"}}
+              style={{ backgroundColor: "#6739b7" }}
             >
               Register
             </Button>

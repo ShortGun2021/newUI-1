@@ -2,29 +2,14 @@ import { useNavigate } from 'react-router-dom'
 import { Card, Button, Container, Col, Row, Image } from 'react-bootstrap'
 import '../Styles/HomePageStyles/CardDisplay.css'
 import { GoInfo } from 'react-icons/go'
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-require('bootstrap/dist/css/bootstrap.min.css')
-const cardDetails = [
-  {
-    image: 'https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg',
-    avatar: 'https://avatars.githubusercontent.com/u/55938092?v=4',
-  },
-  {
-    image: 'https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg',
-    avatar: 'https://avatars.githubusercontent.com/u/55938092?v=4',
-  },
-  {
-    image: 'https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg',
-    avatar: 'https://avatars.githubusercontent.com/u/55938092?v=4',
-  },
-]
+import { Recommend } from '@mui/icons-material'
 
-// let nftData = null;
-// let flag = 0;
+require('bootstrap/dist/css/bootstrap.min.css')
+
 let navigate
 
-const Cards = ({ nftData, card, index }) => {
+const Cards = ({ nftData }) => {
+  // console.log(nftData);
   return (
     <Col xm={4} className="py-3 py-sm-0 col-lg-4 col-md-4 col-12">
       <Card
@@ -32,7 +17,7 @@ const Cards = ({ nftData, card, index }) => {
         onClick={() => {
           navigate('/nft-card', {
             state: {
-              nftData: nftData[index]
+              nftData: nftData
             },
           })
         }}
@@ -40,7 +25,7 @@ const Cards = ({ nftData, card, index }) => {
         {/* <Card.Img variant="top" src={card.image} /> nftData && nftData[0].nftImgBase64 */}
         <Card.Img
           variant="top"
-          src={nftData[index].nftImageUrl}
+          src={nftData.nftImageUrl}
         />
         <Card.Body>
           <Card.Title>
@@ -48,64 +33,67 @@ const Cards = ({ nftData, card, index }) => {
               <Image
                 rounded="true"
                 // src={card.avatar}
-                src={nftData[index].nftImageUrl}
+                src={nftData.nftImageUrl}
                 height="35"
                 width="35"
               ></Image>{' '}
-              <span className="card-nft-name">{nftData[index].nftName}</span>
+              <span className="card-nft-name">{nftData.nftName}</span>
             </h5>
-            <div className="row">
+            <div className="row text-muted" style={{ fontSize: "14px" }
+
+            }>
               {' '}
-              <span className="">
-                {nftData[index].nftDescription}
-              </span>
+              <em className="">
+                ~ "{nftData.nftDescription?.substring(0, 100)}"<span className="mx-2 text-dark">....read more</span>
+              </em>
             </div>
-            <button className="card-goinfo-btn">
-              <GoInfo />
-            </button>
+
+
+
           </Card.Title>
-          {/* <Button className="card-checkout-btn">Checkout NFT</Button> */}
+          <Button className="card-checkout-btn mt-3">Checkout NFT</Button>
+          <button className="card-goinfo-btn mt-3 text-success font-weight-bold">
+            {/* <GoInfo /> */}<span calsssName="">+{Math.floor(Math.random() * (30000 - 1)) / 100}%</span>
+          </button>
         </Card.Body>
       </Card>
-    </Col>
+    </Col >
   )
 }
 
-export default function HeaderCard({ setloadings, loadingCount }) {
-  const [nftData, setNftData] = useState([{}])
-  useEffect(() => {
-    axios
-      .get('https://shortgun-backend.herokuapp.com/nft/getNFTs')
-      .then((response) => {
-        console.log(response.data)
-        // 'nftData' = response.data;
-        // console.log('nftData'[0].nftName);
-        setNftData(response.data)
-        loadingCount = loadingCount + 1
-        setloadings(loadingCount)
-        // return 'nftData';
-        // console.log( nftData)
-        // setNftData(response.data)
-      })
-      .catch((error) => {
-        console.log(error)
-        // window.alert("Registration Failed ");
-        // console.log(error);
-      })
-    // flag = 1;
-  }, [])
-  // console.log('after ', nftData)
+export default function HeaderCard({ setloadings, loadingCount, nftData }) {
+  // console.log(nftData);
+  const RecommendCard = nftData.slice(nftData.length - 6).reverse()
+  console.log(RecommendCard)
   navigate = useNavigate()
   return (
     <>
       <Container>
         <Container>
           <Row>
-            {nftData.map((card, idx) => {
-              return (
-                <Cards key={idx} nftData={nftData} card={card} index={idx} />
-              )
-            })}
+            {
+              // const RecommendCard = nftData.slice(nftData.length - 6).reverse()
+              RecommendCard && RecommendCard.map((element, index) => {
+                return (<Cards key={index} nftData={element} />)
+              })
+
+            }
+            {/* {nftData && (() => {
+              let dataLength = nftData.length
+              dataLength > 6 ? dataLength = 6 : dataLength = dataLength;
+              console.log(dataLength)
+
+              let arr = [];
+              let checkCard = [];
+              for (let i = 0; checkCard.length < dataLength; i++) {
+                let randomIdx = Math.floor(Math.random() * (nftData.length - 1));
+                if (!checkCard.includes(randomIdx)) {
+                  checkCard.push(randomIdx)
+                  arr.push(<Cards key={i} nftData={nftData[randomIdx]} />);
+                }
+              }
+              return arr;
+            })()} */}
           </Row>
         </Container>
       </Container>

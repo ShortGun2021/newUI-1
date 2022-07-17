@@ -375,8 +375,8 @@ const Upload = () => {
                       required
                     />
                     <TextField
-                      placeholder="Price"
-                      label="Value/Price"
+                      placeholder="Value"
+                      label="Value"
                       value={meta.value}
                       name="value"
                       onChange={onChangeData}
