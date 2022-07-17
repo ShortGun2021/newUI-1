@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 // import {
 //   Button,
 //   Container,
@@ -19,9 +18,11 @@ import {
 import { Link } from "react-router-dom";
 import { MdPerson } from "react-icons/md";
 
-import ConnectWallet from "../PhantomWallet/ConnectWallet.tsx";
+import WalletDetails from "../PhantomWallet/WalletDetails.tsx";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import("../Styles/HomePageStyles/NFTNavbar.css");
 
+require("@solana/wallet-adapter-react-ui/styles.css");
 function DesktopviewNav() {
   return (
     <>
@@ -138,8 +139,7 @@ function DesktopviewNav() {
                     <MdPerson style={{ fontSize: "25px" }} />
                   </Button>
                 </Link>
-
-                <ConnectWallet />
+                <WalletDetails />
               </Navbar.Collapse>
             </div>
           </div>
