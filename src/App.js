@@ -11,6 +11,7 @@ import ConnectWallet from "./Components/PhantomWallet/ConnectWallet.tsx";
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
 import PrivateRoute from "./Controller/PrivateRoute";
+import SettingsPage from "./Components/Settings/SettingsPage";
 
 const App = () => {
   return (
@@ -90,6 +91,8 @@ const App = () => {
           ></Route>
           <Route exact path="/login" element={<Login />}></Route>
           <Route exact path="/register" element={<Register />}></Route>
+
+          <Route exact path="/settings" element={<SettingsPage />}></Route>
         </Routes>
       </Router>
     </>
