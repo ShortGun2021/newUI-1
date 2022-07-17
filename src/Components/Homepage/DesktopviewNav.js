@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import { MdPerson } from "react-icons/md";
 
 import ConnectWallet from "../PhantomWallet/ConnectWallet.tsx";
+import WalletDetails from "../PhantomWallet/WalletDetails.tsx";
 import("../Styles/HomePageStyles/NFTNavbar.css");
 
 function DesktopviewNav() {
@@ -138,7 +139,7 @@ function DesktopviewNav() {
                     <MdPerson style={{ fontSize: "25px" }} />
                   </Button>
                 </Link>
-
+                <WalletDetails />
                 <ConnectWallet />
               </Navbar.Collapse>
             </div>

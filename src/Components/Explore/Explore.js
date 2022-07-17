@@ -13,7 +13,7 @@ import {
   Row,
   Spinner,
 } from "react-bootstrap";
-import NFTNavbar from '../Homepage/NFTNavbar'
+import NFTNavbar from "../Homepage/NFTNavbar";
 import "../Styles/ExplorePageStyles/explore.css";
 
 const cardData = [

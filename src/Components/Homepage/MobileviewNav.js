@@ -4,6 +4,7 @@ import { Button, Navbar, Container, Nav } from "react-bootstrap";
 import { MdPerson } from "react-icons/md";
 
 import ConnectWallet from "../PhantomWallet/ConnectWallet.tsx";
+import WalletDetails from "../PhantomWallet/WalletDetails.tsx";
 import { useNavigate } from "react-router-dom";
 
 import { AiOutlineSearch } from "react-icons/ai";
@@ -102,7 +103,7 @@ function Mobileviewnav() {
                     <MdPerson style={{ fontSize: "25px" }} />
                   </Button>
                 </Link>
-
+                <WalletDetails />
                 <ConnectWallet />
               </Link>
             </Nav>

@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import HomePage from "./Components/Homepage/HomePage";
-import NFTNavbar from "./Components/Homepage/NFTNavbar";
+// import NFTNavbar from "./Components/Homepage/NFTNavbar";
 import SearchPage from "./Components/Search/SearchPage";
 import CollectionsPage from "./Components/Collections/Collections";
 import ExplorePage from "./Components/Explore/Explore";
@@ -9,6 +9,7 @@ import ProfilePage from "./Components/Profile/Profile";
 import CardIndex from "./Components/NFTCard/CardIndex";
 import NFTUpload from "./Components/Upload/Upload.tsx";
 import ConnectWallet from "./Components/PhantomWallet/ConnectWallet.tsx";
+import WalletDetails from "./Components/PhantomWallet/WalletDetails.tsx";
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
 import PrivateRoute from "./Controller/PrivateRoute";
@@ -137,6 +138,7 @@ const App = () => {
                   path="/wallet"
                   element={
                     <PrivateRoute>
+                      <WalletDetails />
                       <ConnectWallet />
                     </PrivateRoute>
                   }

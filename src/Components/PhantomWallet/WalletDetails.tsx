@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { Button, Card, Modal, ListGroup, Image } from "react-bootstrap";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -17,10 +18,10 @@ const WalletDetails: FC = () => {
   const fetchBalance = async () => {
     if (publicKey) {
       const walletBalance = await connection.getBalance(publicKey);
-      setBalance(walletBalance);
+      setBalance(walletBalance / LAMPORTS_PER_SOL);
       localStorage.setItem("publicKey", publicKey.toBase58());
     }
-    console.log(balance);
+    // console.log(balance);
   };
   navigate = useNavigate();
 
@@ -29,7 +30,7 @@ const WalletDetails: FC = () => {
   const handleShow = () => setShow(true);
 
   fetchBalance();
-  console.log(balance);
+  // console.log(balance);
   return (
     <>
       <Button className="navItems" variant="light" onClick={handleShow}>

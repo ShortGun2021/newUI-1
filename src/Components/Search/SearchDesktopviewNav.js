@@ -1,13 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-// import {
-//   Button,
-//   Container,
-//   Form,
-//   FormControl,
-//   Nav,
-//   Navbar,
-// } from 'react-bootstrap'
 import {
   Button,
   Navbar,
@@ -15,29 +6,15 @@ import {
   Nav,
   Form,
   FormControl,
-  Dropdown,
-  Card,
-  Modal,
-  ListGroup,
-  Image,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import { MdOutlineAccountBalanceWallet, MdPerson } from "react-icons/md";
+import { MdPerson } from "react-icons/md";
 import ConnectWallet from "../PhantomWallet/ConnectWallet.tsx";
+import WalletDetails from "../PhantomWallet/WalletDetails.tsx";
 import("../Styles/HomePageStyles/NFTNavbar.css");
 
-let navigate;
-
-const openWallet = () => {
-  navigate("/wallet");
-};
-
 function DesktopviewNav() {
-  const [show, setShow] = useState(false);
-  navigate = useNavigate();
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   return (
     <>
       <Navbar
@@ -151,6 +128,7 @@ function DesktopviewNav() {
                     <MdPerson style={{ fontSize: "25px" }} />
                   </Button>
                 </Link>
+                <WalletDetails />
                 <ConnectWallet />
               </Navbar.Collapse>
             </div>
