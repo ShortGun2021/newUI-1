@@ -7,8 +7,8 @@ import CollectionsPage from "./Components/Collections/Collections";
 import ExplorePage from "./Components/Explore/Explore";
 import ProfilePage from "./Components/Profile/Profile";
 import CardIndex from "./Components/NFTCard/CardIndex";
-import NFTUpload from "./Components/Upload/Upload.tsx";
-import ConnectWallet from "./Components/PhantomWallet/ConnectWallet.tsx";
+import NFTUpload from "./Components/Upload/Upload.js";
+
 import WalletDetails from "./Components/PhantomWallet/WalletDetails.tsx";
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
@@ -35,6 +35,7 @@ import {
   SolanaMobileWalletAdapter,
 } from "@solana-mobile/wallet-adapter-mobile";
 // import TransferSol from "./TransferSol.tsx";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 // Default styles that can be overridden by your app
 require("@solana/wallet-adapter-react-ui/styles.css");
@@ -139,7 +140,7 @@ const App = () => {
                   element={
                     <PrivateRoute>
                       <WalletDetails />
-                      <ConnectWallet />
+                      <WalletMultiButton />
                     </PrivateRoute>
                   }
                 ></Route>

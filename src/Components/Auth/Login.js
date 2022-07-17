@@ -42,8 +42,8 @@ const Login = () => {
       // console.log(email,password);
       axios
         .post(
-          "https://shortgun-backend.herokuapp.com/user/signin",
-          // "http://localhost:5000/user/signin",
+          // "https://shortgun-backend.herokuapp.com/user/signin",
+          "http://localhost:5000/user/signin",
           {
             publicID,
           },
@@ -55,6 +55,10 @@ const Login = () => {
           console.log("Login Successful!");
           localStorage.setItem("jwt", response.data.token);
           localStorage.setItem("user", JSON.stringify(response.data.user));
+          localStorage.setItem(
+            "walletAddress",
+            publicKey ? publicKey.toBase58() : ""
+          );
           navigate("/");
         })
         .catch((error) => {

@@ -1,9 +1,12 @@
+/* eslint-disable react/style-prop-object */
 import { FC, useState } from "react";
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { Button, Card, Modal, ListGroup, Image } from "react-bootstrap";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+
 import React from "react";
 
 let navigate;
@@ -20,6 +23,8 @@ const WalletDetails: FC = () => {
       const walletBalance = await connection.getBalance(publicKey);
       setBalance(walletBalance / LAMPORTS_PER_SOL);
       localStorage.setItem("publicKey", publicKey.toBase58());
+    } else {
+      localStorage.setItem("publicKey", "");
     }
     // console.log(balance);
   };
@@ -36,14 +41,10 @@ const WalletDetails: FC = () => {
       <Button className="navItems" variant="light" onClick={handleShow}>
         <MdOutlineAccountBalanceWallet style={{ fontSize: "25px" }} />
       </Button>
-      <Modal
-        style={{ height: "715px" }}
-        className="modalBox"
-        show={show}
-        onHide={handleClose}
-      >
+
+      <Modal className="modalBox" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title className="show-grid">
+          <Modal.Title>
             <ListGroup horizontal>
               <ListGroup.Item>
                 <Image
@@ -55,10 +56,12 @@ const WalletDetails: FC = () => {
               </ListGroup.Item>
 
               <ListGroup.Item>
-                <p style={{ fontSize: "0.9rem" }}>
-                  {publicKey
-                    ? publicKey.toBase58()
-                    : "Please Connect To Your Wallet"}
+                <p>
+                  {publicKey ? (
+                    <WalletMultiButton />
+                  ) : (
+                    "Please Connect To Your Wallet"
+                  )}
                 </p>
               </ListGroup.Item>
             </ListGroup>
@@ -69,7 +72,7 @@ const WalletDetails: FC = () => {
             <Card.Body>
               <Card.Title>Total Balance</Card.Title>
               <Card.Text>
-                {balance ? "$" + balance + "SOL" : "$0.00 SOL"}
+                {publicKey ? "$" + balance + "SOL" : "$0.00 SOL"}
               </Card.Text>
             </Card.Body>
             <Card.Footer className="text-muted">

@@ -3,21 +3,15 @@ import React from "react";
 import { Button, Navbar, Container, Nav } from "react-bootstrap";
 import { MdPerson } from "react-icons/md";
 
-import ConnectWallet from "../PhantomWallet/ConnectWallet.tsx";
 import WalletDetails from "../PhantomWallet/WalletDetails.tsx";
 import { useNavigate } from "react-router-dom";
 
 import { AiOutlineSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
+require("@solana/wallet-adapter-react-ui/styles.css");
 
 function Mobileviewnav() {
   let navigate = useNavigate();
-
-  // const searchComponent = () => {
-  //   return (
-
-  //   )
-  // }
 
   return (
     <>
@@ -104,7 +98,6 @@ function Mobileviewnav() {
                   </Button>
                 </Link>
                 <WalletDetails />
-                <ConnectWallet />
               </Link>
             </Nav>
           </Navbar.Collapse>
