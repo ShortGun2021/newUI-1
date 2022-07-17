@@ -23,7 +23,7 @@ export default function App() {
           style={{ color: '#1C1C1C', fontSize: '18px', fontWeight: 800 }}
           className="col-9 text-center banner-text"
         >
-          Lorem Ipsum is simply dummy text
+          Explore, collect and buy NFTs with us.
         </div>
         <div className="col-3 banner-div">
           <Button

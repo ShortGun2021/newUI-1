@@ -8,7 +8,7 @@ let navigate
 const handleClick = () => {
   navigate('/explore')
 }
-const handleCreateBtn = () =>{
+const handleCreateBtn = () => {
   navigate('/admin');
 }
 
@@ -24,8 +24,7 @@ export default function Header() {
             </h1>
           </div>
           <p className="discover-para">
-            We are the world’s most unique NFT marketplace, We are the world’s
-            most unique NFT marketplace
+            We are the world’s most unique NFT marketplace.
           </p>
           <div className="mb-2 d-flex justify-content-center">
             <Button
