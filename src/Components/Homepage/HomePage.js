@@ -89,7 +89,7 @@ const HomePage = () => {
         <Banner />
         <NFTCarousel nftData={nftData} />
         <TopCollections />
-        <Categories />
+        <Categories nftData={nftData} />
         <LastSection />
         <Footer />
       </div>
