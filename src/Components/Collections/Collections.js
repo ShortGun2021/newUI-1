@@ -15,7 +15,7 @@ import { BsListUl } from "react-icons/bs";
 import { TbGridDots } from "react-icons/tb";
 import { MdFavorite } from "react-icons/md";
 import { Spinner } from "react-bootstrap";
-// import NFTNavbar from '../Homepage/NFTNavbar'
+import NFTNavbar from "../Homepage/NFTNavbar";
 import CollectionCards from "./CollectionCards";
 import "../Styles/CollectionPageStyles/collections.css";
 import Desktopbtns from "./Desktopbtns";
@@ -83,7 +83,7 @@ export default function Collections() {
         }
       >
         <div style={{ fontFamily: "Poppins" }}>
-          {/* <NFTNavbar /> */}
+          <NFTNavbar />
           <div className="collectiblesCover h-25 border">
             <img className="image" src={profile.coverimg} alt="cover photo" />
           </div>

@@ -8,7 +8,7 @@ import Profile_created from "./Profile_created";
 import Image from "react-bootstrap/Image";
 import { FaDiscord } from "react-icons/fa";
 import { Spinner } from "react-bootstrap";
-// import NFTNavbar from "../Homepage/NFTNavbar";
+import NFTNavbar from "../Homepage/NFTNavbar";
 import Footer from "../Homepage/Footer";
 
 import {
@@ -84,7 +84,7 @@ function Profile() {
             : {}
         }
       >
-        {/* <NFTNavbar /> */}
+        <NFTNavbar />
         <div className="page">
           <div className="cover h-25 border">
             <img className="image" src={profile.coverimg} alt="cover photo" />

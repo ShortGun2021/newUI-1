@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import NFTNavbar from "./NFTNavbar";
+import NFTNavbar from "./NFTNavbar";
 import DiscoverSection from "./DiscoverSection";
 import CardDisplay from "./CardDisplay";
 import Banner from "./Banner";
@@ -54,7 +54,7 @@ const HomePage = () => {
             : {}
         }
       >
-        {/* <NFTNavbar /> */}
+        <NFTNavbar />
         <DiscoverSection />
         <CardDisplay setloadings={setloadings} loadingCount={loadingCount} />
         <Banner />

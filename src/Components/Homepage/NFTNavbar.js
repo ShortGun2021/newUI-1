@@ -4,18 +4,9 @@ import MobileviewNav from "./MobileviewNav";
 import("../Styles/HomePageStyles/NFTNavbar.css");
 
 require("bootstrap/dist/css/bootstrap.min.css");
-const useAuth = () => {
-  if (
-    window.location.pathname === "/login" ||
-    window.location.pathname === "/register"
-  )
-    return false;
-  else return true;
-};
 
 export default function App() {
-  const authUser = useAuth();
-  return authUser ? (
+  return (
     <>
       <div className="desktop">
         <DesktopviewNav />
@@ -24,7 +15,5 @@ export default function App() {
         <MobileviewNav />
       </div>
     </>
-  ) : (
-    <></>
   );
 }

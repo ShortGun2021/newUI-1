@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-// import NFTNavbar from '../Homepage/NFTNavbar'
+import NFTNavbar from "../Homepage/NFTNavbar";
 import Container1 from "./Container1";
 import Container2 from "./Container2";
 import Container3 from "./Container3";
@@ -11,7 +11,7 @@ const CardIndex = () => {
   // console.log(location);
   return (
     <>
-      {/* <NFTNavbar /> */}
+      <NFTNavbar />
       <div
         className="row"
         style={{ fontFamily: "Poppins", width: "93%", margin: "0 auto" }}
