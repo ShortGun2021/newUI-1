@@ -62,6 +62,7 @@ const Cards = ({ nftData }) => {
 }
 
 export default function HeaderCard({ setloadings, loadingCount, nftData }) {
+  // console.log(nftData);
   const RecommendCard = nftData.slice(nftData.length - 6).reverse()
   console.log(RecommendCard)
   navigate = useNavigate()
