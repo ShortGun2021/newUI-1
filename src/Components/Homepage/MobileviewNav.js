@@ -1,18 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-import {
-  Button,
-  Navbar,
-  Container,
-  Nav,
-  Form,
-  FormControl,
-  Dropdown,
-  Card,
-  Modal,
-  ListGroup,
-  Image,
-} from "react-bootstrap";
+import { Button, Navbar, Container, Nav } from "react-bootstrap";
 import { MdPerson } from "react-icons/md";
 
 import ConnectWallet from "../PhantomWallet/ConnectWallet.tsx";
@@ -22,10 +10,6 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 function Mobileviewnav() {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const [search, setsearch] = useState(false);
   let navigate = useNavigate();
 
   // const searchComponent = () => {
