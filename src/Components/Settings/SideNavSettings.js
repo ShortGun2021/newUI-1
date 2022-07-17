@@ -131,7 +131,7 @@ marginBottom:"2%"
             aria-labelledby="v-pills-home-tab"
             tabindex="0"
           >
-            ...
+            
           </div>
           <div
             class="tab-pane fade"
@@ -140,7 +140,7 @@ marginBottom:"2%"
             aria-labelledby="v-pills-disabled-tab"
             tabindex="0"
           >
-            ...
+            
           </div>
           <div
             class="tab-pane fade"
@@ -149,7 +149,7 @@ marginBottom:"2%"
             aria-labelledby="v-pills-disabled-tab"
             tabindex="0"
           >
-            ...
+            
           </div>
           <div
             class="tab-pane fade"
@@ -158,7 +158,7 @@ marginBottom:"2%"
             aria-labelledby="v-pills-disabled-tab"
             tabindex="0"
           >
-            ...
+            
           </div>
           <div
             class="tab-pane fade"
@@ -167,7 +167,7 @@ marginBottom:"2%"
             aria-labelledby="v-pills-disabled-tab"
             tabindex="0"
           >
-            ...
+            
           </div>
         </div>
       </div>
