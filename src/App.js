@@ -13,6 +13,7 @@ import WalletDetails from "./Components/PhantomWallet/WalletDetails.js";
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
 import PrivateRoute from "./Controller/PrivateRoute";
+import SettingsPage from "./Components/Settings/SettingsPage";
 
 import { useMemo } from "react";
 import {
@@ -141,6 +142,15 @@ const App = () => {
                     <PrivateRoute>
                       <WalletDetails />
                       <WalletMultiButton />
+                    </PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  exact
+                  path="/settings"
+                  element={
+                    <PrivateRoute>
+                      <SettingsPage />
                     </PrivateRoute>
                   }
                 ></Route>
