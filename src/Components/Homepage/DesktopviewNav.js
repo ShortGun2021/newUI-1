@@ -18,8 +18,7 @@ import {
 import { Link } from "react-router-dom";
 import { MdPerson } from "react-icons/md";
 
-import WalletDetails from "../PhantomWallet/WalletDetails.tsx";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import WalletDetails from "../PhantomWallet/WalletDetails.js";
 import("../Styles/HomePageStyles/NFTNavbar.css");
 
 require("@solana/wallet-adapter-react-ui/styles.css");

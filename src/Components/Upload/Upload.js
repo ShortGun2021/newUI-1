@@ -13,7 +13,6 @@ import {
   Stack,
 } from "@mui/material";
 import { InputAdornment } from "@mui/material";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { useWallet } from "@solana/wallet-adapter-react";
 import axios from "axios";
@@ -439,9 +438,7 @@ const Upload = () => {
                         readOnly: true,
                         endAdornment: (
                           <InputAdornment position="end">
-                            <WalletMultiButton
-                              startIcon={<MdOutlineAccountBalanceWallet />}
-                            />
+                            <MdOutlineAccountBalanceWallet />
                           </InputAdornment>
                         ),
                       }}
