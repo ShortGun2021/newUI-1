@@ -45,20 +45,20 @@ const HomePage = () => {
       {loadings !== 1 ? (
         <div
           style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%,-50%)",
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%,-50%)',
           }}
         >
           <Spinner
             animation="border"
             style={{
-              fontSize: "50px",
-              color: "#6739B7",
-              width: "100px",
-              height: "100px",
-              margin: "50px auto 40px auto",
+              fontSize: '50px',
+              color: '#6739B7',
+              width: '100px',
+              height: '100px',
+              margin: '50px auto 40px auto',
             }}
             role="status"
           >
@@ -66,17 +66,17 @@ const HomePage = () => {
           </Spinner>
         </div>
       ) : (
-        ""
+        ''
       )}
       <div
         style={
           loadings !== 1
             ? {
-                opacity: "0.25",
-                position: "fixed",
-                overflowY: "scroll",
-                width: "100%",
-              }
+              opacity: "0.25",
+              position: "fixed",
+              overflowY: "scroll",
+              width: "100%",
+            }
             : {}
         }
       >
@@ -88,14 +88,14 @@ const HomePage = () => {
           nftData={nftData}
         />
         <Banner />
-        <NFTCarousel />
+        <NFTCarousel nftData={nftData} />
         <TopCollections />
         <Categories nftData={nftData} />
         <LastSection />
         <Footer />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage

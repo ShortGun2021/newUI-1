@@ -250,6 +250,7 @@ const Upload = () => {
         });
     }
   };
+
   return (
     <>
       <NFTNavbar />

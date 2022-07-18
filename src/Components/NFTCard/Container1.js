@@ -16,7 +16,8 @@ import { SiDiscord } from "react-icons/si";
 import { FiLink2 } from "react-icons/fi";
 // require('https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css')
 require("bootstrap/dist/css/bootstrap.min.css");
-const Container1 = (props) => {
+const Container1 = ({ nftData }) => {
+  // console.log(nftData);
   return (
     <>
       <div>
@@ -33,11 +34,20 @@ const Container1 = (props) => {
             <img
               style={{ borderRadius: "10px" }}
               // src="https://images.pexels.com/photos/12334012/pexels-photo-12334012.jpeg?cs=srgb&dl=pexels-luis-angel-ferrer-l%C3%B3pez-12334012.jpg&fm=jpg"
-              src={props.nftImage}
+              src={nftData.nftImageUrl}
               width="100%"
               height="100%"
               alt=""
             />
+            <div style={{
+              display: "flex",
+              alignContent: "center",
+              justifyContent: "center",
+              alignItems: "center",
+
+            }}>
+              <a href={nftData.nftImageUrl} target="_blank" ><Button className="card-checkout-btn mt-2">View Image</Button></a>
+            </div>
           </div>
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
@@ -59,11 +69,11 @@ const Container1 = (props) => {
                 aria-labelledby="headingOne"
                 data-bs-parent="#accordionExample"
               >
-                <div class="accordion-body text-center">
-                  <strong>
-                    Created By{" "}
-                    <span style={{ color: "#6739B7" }}>RUBY SOL.</span>{" "}
-                  </strong>
+                <div class="accordion-body text-left">
+                  <strong>" </strong>
+                  <span style={{ color: "#6739B7" }}><i>{nftData.nftDescription}</i></span>{" "}
+                  <strong> "</strong>
+
                 </div>
               </div>
             </div>
@@ -128,7 +138,7 @@ const Container1 = (props) => {
                                 fontWeight: "600",
                               }}
                             >
-                              Background
+                              Trait Type
                             </h5>
                             <p
                               style={{
@@ -138,7 +148,7 @@ const Container1 = (props) => {
                                 margin: "0 0 5px 0",
                               }}
                             >
-                              YELLOW
+                              {nftData.nftTraitType}
                             </p>
                             <p
                               style={{
@@ -148,241 +158,13 @@ const Container1 = (props) => {
                                 margin: 0,
                               }}
                             >
-                              18% have this trait
+                              {nftData.nftValue} % have this trait
                             </p>
                           </div>
                         </div>
                       </div>
-                      <div
-                        className="col-xl-3 col-sm-3 col-lg-4 col-md-4 col-xl-4"
-                        style={{ width: "175px" }}
-                      >
-                        <div
-                          class="card"
-                          style={{
-                            backgroundColor: "#EAE0FF",
-                            border: "1px solid #6739B7",
-                            borderRadius: "9px",
-                          }}
-                        >
-                          <div class="card-body">
-                            <h5
-                              style={{
-                                whiteSpace: "nowrap",
-                                color: "#6739B7",
-                                fontSize: "14px",
-                                fontWeight: "600",
-                              }}
-                            >
-                              Background
-                            </h5>
-                            <p
-                              style={{
-                                color: "#353840",
-                                fontWeight: "500",
-                                fontSize: "16px",
-                                margin: "0 0 5px 0",
-                              }}
-                            >
-                              YELLOW
-                            </p>
-                            <p
-                              style={{
-                                color: "#707A83",
-                                fontWeight: "400",
-                                fontSize: "12px",
-                                margin: 0,
-                              }}
-                            >
-                              18% have this trait
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        className="col-xl-3 col-sm-3 col-lg-4 col-md-4 col-xl-4"
-                        style={{ width: "175px" }}
-                      >
-                        <div
-                          class="card"
-                          style={{
-                            backgroundColor: "#EAE0FF",
-                            border: "1px solid #6739B7",
-                            borderRadius: "9px",
-                          }}
-                        >
-                          <div class="card-body">
-                            <h5
-                              style={{
-                                whiteSpace: "nowrap",
-                                color: "#6739B7",
-                                fontSize: "14px",
-                                fontWeight: "600",
-                              }}
-                            >
-                              Background
-                            </h5>
-                            <p
-                              style={{
-                                color: "#353840",
-                                fontWeight: "500",
-                                fontSize: "16px",
-                                margin: "0 0 5px 0",
-                              }}
-                            >
-                              YELLOW
-                            </p>
-                            <p
-                              style={{
-                                color: "#707A83",
-                                fontWeight: "400",
-                                fontSize: "12px",
-                                margin: 0,
-                              }}
-                            >
-                              18% have this trait
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        className="col-xl-3 col-sm-3 col-lg-4 col-md-4 col-xl-4"
-                        style={{ width: "175px" }}
-                      >
-                        <div
-                          class="card"
-                          style={{
-                            backgroundColor: "#EAE0FF",
-                            border: "1px solid #6739B7",
-                            borderRadius: "9px",
-                          }}
-                        >
-                          <div class="card-body">
-                            <h5
-                              style={{
-                                whiteSpace: "nowrap",
-                                color: "#6739B7",
-                                fontSize: "14px",
-                                fontWeight: "600",
-                              }}
-                            >
-                              Background
-                            </h5>
-                            <p
-                              style={{
-                                color: "#353840",
-                                fontWeight: "500",
-                                fontSize: "16px",
-                                margin: "0 0 5px 0",
-                              }}
-                            >
-                              YELLOW
-                            </p>
-                            <p
-                              style={{
-                                color: "#707A83",
-                                fontWeight: "400",
-                                fontSize: "12px",
-                                margin: 0,
-                              }}
-                            >
-                              18% have this trait
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        className="col-xl-3 col-sm-3 col-lg-4 col-md-4 col-xl-4"
-                        style={{ width: "175px" }}
-                      >
-                        <div
-                          class="card"
-                          style={{
-                            backgroundColor: "#EAE0FF",
-                            border: "1px solid #6739B7",
-                            borderRadius: "9px",
-                          }}
-                        >
-                          <div class="card-body">
-                            <h5
-                              style={{
-                                whiteSpace: "nowrap",
-                                color: "#6739B7",
-                                fontSize: "14px",
-                                fontWeight: "600",
-                              }}
-                            >
-                              Background
-                            </h5>
-                            <p
-                              style={{
-                                color: "#353840",
-                                fontWeight: "500",
-                                fontSize: "16px",
-                                margin: "0 0 5px 0",
-                              }}
-                            >
-                              YELLOW
-                            </p>
-                            <p
-                              style={{
-                                color: "#707A83",
-                                fontWeight: "400",
-                                fontSize: "12px",
-                                margin: 0,
-                              }}
-                            >
-                              18% have this trait
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        className="col-xl-3 col-sm-3 col-lg-4 col-md-4 col-xl-4"
-                        style={{ width: "175px" }}
-                      >
-                        <div
-                          class="card"
-                          style={{
-                            backgroundColor: "#EAE0FF",
-                            border: "1px solid #6739B7",
-                            borderRadius: "9px",
-                          }}
-                        >
-                          <div class="card-body">
-                            <h5
-                              style={{
-                                whiteSpace: "nowrap",
-                                color: "#6739B7",
-                                fontSize: "14px",
-                                fontWeight: "600",
-                              }}
-                            >
-                              Background
-                            </h5>
-                            <p
-                              style={{
-                                color: "#353840",
-                                fontWeight: "500",
-                                fontSize: "16px",
-                                margin: "0 0 5px 0",
-                              }}
-                            >
-                              YELLOW
-                            </p>
-                            <p
-                              style={{
-                                color: "#707A83",
-                                fontWeight: "400",
-                                fontSize: "12px",
-                                margin: 0,
-                              }}
-                            >
-                              18% have this trait
-                            </p>
-                          </div>
-                        </div>
-                      </div>{" "}
+
+
                     </div>
                   </div>
                 </div>
@@ -398,7 +180,7 @@ const Container1 = (props) => {
                   aria-expanded="false"
                   aria-controls="collapseThree"
                 >
-                  About Rugby
+                  About &nbsp;<strong> {nftData.nftName}</strong>
                 </button>
               </h2>
               <div
@@ -409,15 +191,18 @@ const Container1 = (props) => {
               >
                 <div class="accordion-body">
                   <div className="row">
-                    <div style={{ display: "flex", flexDirection: "row" }}>
+                    {/* <div style={{ display: "flex", flexDirection: "row" }}>
                       <div>
-                        <img
-                          style={{ borderRadius: "10px" }}
-                          src="https://images.pexels.com/photos/12334012/pexels-photo-12334012.jpeg?cs=srgb&dl=pexels-luis-angel-ferrer-l%C3%B3pez-12334012.jpg&fm=jpg"
-                          width="104px"
-                          height="104px"
-                          alt="/"
-                        />
+                        <a href={nftData.nftImageUrl} >
+
+                          <img
+                            style={{ borderRadius: "10px" }}
+                            src={nftData.nftImageUrl}
+                            width="104px"
+                            height="104px"
+                            alt={nftData.nftImageUrl}
+                          />
+                        </a>
                       </div>
                       <div
                         className="ml-2"
@@ -431,8 +216,8 @@ const Container1 = (props) => {
                         typesetting industry. Lorem Ipsum has been the
                         industry's standard dummy text ever since the 1500s.
                       </div>
-                    </div>
-                    <div className="mt-3">
+                    </div> */}
+                    {/* <div className="mt-3">
                       <ButtonGroup
                         style={{
                           width: "200px",
@@ -497,6 +282,16 @@ const Container1 = (props) => {
                           <BsTwitter style={{ fontSize: "22px" }} />{" "}
                         </Button>
                       </ButtonGroup>
+                    */}
+                    <div className='px-1'>
+                      <ul >
+                        <li><b>NFT ID: </b>{nftData._id}</li>
+                        <li><b>NFT Name: </b>{nftData.nftName}</li>
+                        <li><b>NFT Category: </b>{nftData.nftCategory}</li>
+                        <li><b>NFT Symbol: </b>{nftData.nftSymbol}</li>
+                        <li><b>NFT Seller Fee Point: </b>{nftData.seller_fee_basis_points}</li>
+                        <li><b>Owner Address: </b>{nftData.walletAddress}</li>
+                      </ul>
                     </div>
                   </div>
                 </div>
@@ -504,7 +299,7 @@ const Container1 = (props) => {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 };

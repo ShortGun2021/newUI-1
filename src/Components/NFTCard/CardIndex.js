@@ -8,7 +8,8 @@ import { Row, Col, Container } from "react-bootstrap";
 
 const CardIndex = () => {
   const location = useLocation();
-  // console.log(location);
+  // console.log(location.state.nftData);
+  let nftData = location.state.nftData;
   return (
     <>
       <NFTNavbar />
@@ -17,13 +18,13 @@ const CardIndex = () => {
         style={{ fontFamily: "Poppins", width: "93%", margin: "0 auto" }}
       >
         <div className="col-lg-5 col-md-5 col-12">
-          <Container1 nftImage={location.state.nftData.nftImageUrl} />
+          <Container1 nftData={nftData} />
         </div>
         <div className="col-lg-7 col-md-7 col-12 mt-3">
-          <Container2 nftData={location.state.nftData} />
+          <Container2 nftData={nftData} />
         </div>
         <div className="col-lg-12 col-md-12 col-12 mt-3">
-          <Container3 />
+          <Container3 nftData={nftData} />
         </div>
       </div>
     </>
