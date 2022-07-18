@@ -288,13 +288,13 @@ function Explore() {
                 {nftData.map((card, index) => {
                   if (Btnname === "All Categories") {
                     return (
-                      <Cards key={index} card={card} nftData={nftData[index]} />
+                      <Cards key={index} nftData={nftData[index]} />
                     );
                   }
                   else {
                     if (Btnname === nftData[index].nftCategory) {
                       return (
-                        <Cards key={index} card={card} nftData={nftData[index]} />
+                        <Cards key={index} nftData={nftData[index]} />
                       );
                     }
                   }

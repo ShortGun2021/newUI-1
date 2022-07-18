@@ -28,7 +28,7 @@ const profile = {
   profileimg:
     "https://images.unsplash.com/photo-1566753323558-f4e0952af115?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFkfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
   name: "Full Name",
-  bio: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+  bio: "This is my bio. ",
 };
 
 function Profile() {
@@ -76,11 +76,11 @@ function Profile() {
         style={
           loadings !== 1
             ? {
-                opacity: "0.25",
-                position: "fixed",
-                overflowY: "scroll",
-                width: "100%",
-              }
+              opacity: "0.25",
+              position: "fixed",
+              overflowY: "scroll",
+              width: "100%",
+            }
             : {}
         }
       >
@@ -139,10 +139,10 @@ function Profile() {
                   style={
                     Btnname === "Collected"
                       ? {
-                          color: "#6739B7",
-                          borderBottom: "2px solid #6739B7",
-                          borderRadius: 0,
-                        }
+                        color: "#6739B7",
+                        borderBottom: "2px solid #6739B7",
+                        borderRadius: 0,
+                      }
                       : { color: "#636363" }
                   }
                   variant="link"
@@ -156,9 +156,9 @@ function Profile() {
                   style={
                     Btnname === "Created"
                       ? {
-                          color: "#6739B7",
-                          borderBottom: "2px solid #6739B7",
-                        }
+                        color: "#6739B7",
+                        borderBottom: "2px solid #6739B7",
+                      }
                       : { color: "#636363" }
                   }
                   variant="link"
@@ -214,10 +214,10 @@ function Profile() {
                   style={
                     Btnname === "OffersRecieved"
                       ? {
-                          color: "#6739B7",
-                          borderBottom: "2px solid #6739B7",
-                          borderRadius: 0,
-                        }
+                        color: "#6739B7",
+                        borderBottom: "2px solid #6739B7",
+                        borderRadius: 0,
+                      }
                       : { color: "#636363" }
                   }
                   variant="link"

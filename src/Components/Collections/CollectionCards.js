@@ -152,7 +152,7 @@ export default function CollectionCards({ setloadings, loadingCount }) {
     <>
       <Container style={{ marginTop: '10px' }}>
         <Container>
-          <Form
+          {/* <Form
             style={{
               width: '100%',
               display: 'flex',
@@ -233,7 +233,7 @@ export default function CollectionCards({ setloadings, loadingCount }) {
                 </div>
               </Col>
             </Row>
-          </Form>
+          </Form> */}
         </Container>
         <Container>
           <Row>
