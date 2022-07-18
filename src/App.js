@@ -9,7 +9,7 @@ import ProfilePage from "./Components/Profile/Profile";
 import CardIndex from "./Components/NFTCard/CardIndex";
 import NFTUpload from "./Components/Upload/Upload.js";
 
-import WalletDetails from "./Components/PhantomWallet/WalletDetails.tsx";
+import WalletDetails from "./Components/PhantomWallet/WalletDetails.js";
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
 import PrivateRoute from "./Controller/PrivateRoute";

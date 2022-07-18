@@ -3,7 +3,7 @@ import React from "react";
 import { Button, Navbar, Container, Nav } from "react-bootstrap";
 import { MdPerson } from "react-icons/md";
 
-import WalletDetails from "../PhantomWallet/WalletDetails.tsx";
+import WalletDetails from "../PhantomWallet/WalletDetails.js";
 import { useNavigate } from "react-router-dom";
 
 import { AiOutlineSearch } from "react-icons/ai";
