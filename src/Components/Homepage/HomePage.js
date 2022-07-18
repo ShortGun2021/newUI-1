@@ -1,43 +1,44 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react'
-import NFTNavbar from './NFTNavbar'
-import DiscoverSection from './DiscoverSection'
-import CardDisplay from './CardDisplay'
-import Banner from './Banner'
-import Categories from './Categories'
-import LastSection from './LastSection'
-import NFTCarousel from './NFTCarousel'
-import TopCollections from './TopCollection'
-import Footer from './Footer'
-import { Spinner } from 'react-bootstrap'
-import axios from 'axios'
+import React, { useState } from "react";
+import { useEffect } from "react";
+import NFTNavbar from "./NFTNavbar";
+import DiscoverSection from "./DiscoverSection";
+import CardDisplay from "./CardDisplay";
+import Banner from "./Banner";
+import Categories from "./Categories";
+import LastSection from "./LastSection";
+import NFTCarousel from "./NFTCarousel";
+import TopCollections from "./TopCollection";
+import Footer from "./Footer";
+import { Spinner } from "react-bootstrap";
+import { useWallet } from "@solana/wallet-adapter-react";
+import axios from "axios";
 
 const HomePage = () => {
-  let loadingCount = 0
-  const [loadings, setloadings] = useState(0)
-  // console.log(loadings)
-  const [nftData, setNftData] = useState([{}])
+  let loadingCount = 0;
+  const [loadings, setloadings] = useState(0);
+
+  const [nftData, setNftData] = useState([{}]);
   useEffect(() => {
     axios
-      .get('https://shortgun-backend.herokuapp.com/nft/getNFTs')
+      .get("https://shortgun-backend.herokuapp.com/nft/getNFTs")
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         // 'nftData' = response.data;
         // console.log('nftData'[0].nftName);
-        setNftData(response.data)
-        loadingCount = loadingCount + 1
-        setloadings(loadingCount)
+        setNftData(response.data);
+        loadingCount = loadingCount + 1;
+        setloadings(loadingCount);
         // return 'nftData';
         // console.log( nftData)
         // setNftData(response.data)
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         // window.alert("Registration Failed ");
         // console.log(error);
-      })
+      });
     // flag = 1;
-  }, [])
+  }, []);
 
   return (
     <>
@@ -71,11 +72,11 @@ const HomePage = () => {
         style={
           loadings !== 1
             ? {
-                opacity: '0.25',
-                position: 'fixed',
-                overflowY: 'scroll',
-                width: '100%',
-              }
+              opacity: "0.25",
+              position: "fixed",
+              overflowY: "scroll",
+              width: "100%",
+            }
             : {}
         }
       >
