@@ -21,22 +21,9 @@ import { useNavigate } from 'react-router-dom'
 
 require('bootstrap/dist/css/bootstrap.min.css')
 
-const Container2 = (props) => {
+const Container2 = ({ nftData }) => {
   const navigate = useNavigate()
-  console.log(props)
-  // const [nftData, setNftData] = useState([{}])
-  // useEffect(() => {
-  //   axios
-  //     .get('https://shortgun-backend.herokuapp.com/nft/getNFTs')
-  //     .then((response) => {
-  //       console.log(response.data)
-  //       setNftData(response.data)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //       window.alert('Internal Server Error ')
-  //     })
-  // }, [])
+  console.log(nftData)
 
   //bid placing
   const submitHandler = async (id) => {
@@ -134,17 +121,15 @@ const Container2 = (props) => {
           </Button>
         </ButtonGroup>
       </div>
-      <div style={{ margin: '2%' }}>
+      <div style={{ margin: '4%' }}>
         <div>
-          <h3 style={{ color: '#6739B7' }}>{props.nftData.nftName}</h3>
-          <h4>ID: {props.nftData._id}</h4>
-          <h5>
-            Description:{' '}
-            <span style={{ color: '#6739B7' }}>{props.nftData.nftDescription}</span>{' '}
-            <span>
-              <FaHeart />
-            </span>
-          </h5>
+          <h3 style={{ color: '#6739B7' }}><strong>{nftData.nftName}</strong></h3>
+        </div>
+        <div class="text-left my-4">
+          <strong>~&nbsp; "</strong>
+          <span style={{ color: "#6739B7" }}><i>{nftData.nftDescription}</i></span>{" "}
+          <strong> "</strong>
+
         </div>
         <div>
           <div className="accordion" id="accordionPanelsStayOpenExample">
@@ -207,9 +192,9 @@ const Container2 = (props) => {
                       fontWeight: 500,
                     }}
                     onClick={() => {
-                      console.log(props.nftId)
-                      console.log(props)
-                      submitHandler(props.nftId)
+                      // console.log(nftData._id)
+                      // console.log(props)
+                      submitHandler(nftData._id)
                     }}
                   >
                     Place Bid

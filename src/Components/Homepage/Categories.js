@@ -29,7 +29,7 @@ const Cards = ({ nftData }) => {
       <Card
         className="header-card"
         onClick={() => {
-          navigate('/nft-card', {
+          navigate('/nftDetails', {
             state: {
               nftData: nftData
             },
