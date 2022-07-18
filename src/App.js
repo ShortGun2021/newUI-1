@@ -116,7 +116,7 @@ const App = () => {
                 ></Route>
                 <Route
                   exact
-                  path="/nft-card"
+                  path="/nftDetails"
                   element={
                     <PrivateRoute>
                       <CardIndex />

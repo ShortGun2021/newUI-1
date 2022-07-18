@@ -1,8 +1,8 @@
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { Card, Button, Container, Col, Row, Image } from 'react-bootstrap'
 import { MdFavorite } from 'react-icons/md'
 import SearchPanel from './SearchPanel'
-import ('../Styles/HomePageStyles/Categories.css')
+import('../Styles/HomePageStyles/Categories.css')
 require('bootstrap/dist/css/bootstrap.min.css')
 
 const categoryDetails = [
@@ -31,12 +31,12 @@ const categoryDetails = [
 
 let navigate;
 
-const handleClick=()=>{
-  navigate('/nft-card')
+const handleClick = () => {
+  navigate('/nftDetails')
 }
 
 const renderCategories = (card, index) => {
-  
+
   return (
     <Col xm={4} className="py-3 py-sm-0 col-lg-4 col-md-4 col-12" key={index}>
       <Card className="category-card" onClick={handleClick}>
@@ -69,15 +69,15 @@ export default function SearchCategories() {
   navigate = useNavigate();
   return (
     <>
-      <SearchPanel/>    
+      <SearchPanel />
       <Container>
         <Container>
           <Row className="categories-row">
-          {categoryDetails.map(renderCategories)}
+            {categoryDetails.map(renderCategories)}
           </Row>
 
           <Row className="categories-row">
-          {categoryDetails.map(renderCategories)}
+            {categoryDetails.map(renderCategories)}
           </Row>
         </Container>
       </Container>
