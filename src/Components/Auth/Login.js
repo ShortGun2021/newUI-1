@@ -55,6 +55,10 @@ const Login = () => {
           console.log("Login Successful!");
           localStorage.setItem("jwt", response.data.token);
           localStorage.setItem("user", JSON.stringify(response.data.user));
+          localStorage.setItem(
+            "walletAddress",
+            publicKey ? publicKey.toBase58() : ""
+          );
           navigate("/");
         })
         .catch((error) => {

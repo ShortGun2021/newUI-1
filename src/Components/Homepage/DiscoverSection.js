@@ -39,9 +39,9 @@ export default function Header() {
               Create
             </Button>{' '}
           </div>
-          <a className="learn-more-anchor" href="/">
+          {/* <a className="learn-more-anchor" href="/">
             <p className="text-center">Learn more about us</p>
-          </a>
+          </a> */}
         </div>
       </div>
     </>

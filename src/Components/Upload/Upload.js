@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import Arweave from "arweave";
 import { Buffer } from "buffer";
@@ -12,9 +12,14 @@ import {
   Button,
   Stack,
 } from "@mui/material";
+import { InputAdornment } from "@mui/material";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
+import { useWallet } from "@solana/wallet-adapter-react";
 import axios from "axios";
 
 const Upload = () => {
+  const { publicKey } = useWallet();
   let temp = true;
   // --------------Images ----------------------
   const [images, setImages] = React.useState([]);
@@ -27,11 +32,10 @@ const Upload = () => {
     symbol: "",
     description: "",
     seller_fee_basis_points: "",
-    image: "",
     trait_type: "",
     value: "",
 
-    walletAddress: "",
+    walletAddress: publicKey?.toBase58(),
     category: "",
     files: [
       {
@@ -40,17 +44,23 @@ const Upload = () => {
       },
     ],
   });
+  useEffect(() => {
+    setmeta({
+      ...meta,
+      walletAddress: publicKey?.toBase58(),
+    });
+  }, [publicKey]);
 
   // ---------------------metadata ---------------
 
-  const onChangeData = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeData = (e) => {
     setmeta({
       ...meta,
       [e.target.name]: e.target.value,
     });
   };
 
-  const onChangePropType = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangePropType = (e) => {
     setmeta({
       ...meta,
       files: [
@@ -69,15 +79,12 @@ const Upload = () => {
   };
 
   // ----------------------------Images variables - -----
-  const onChange = (
-    imageList: ImageListType,
-    addUpdateIndex: number[] | undefined
-  ) => {
+  const onChange = (imageList) => {
     // data for submit
 
     // console.log(imageList);
     // console.log(addUpdateIndex);
-    setImages(imageList as never[]);
+    setImages(imageList);
 
     const im = imageList[0];
     let d = im[Object.keys(im)[0]];
@@ -88,7 +95,7 @@ const Upload = () => {
   // rwearve
   const Ar = async () => {
     //optionally check if fields are empty
-    // console.log(meta);
+    console.log(meta);
     // console.log(meta.symbol);
     // console.log(meta.description);
     // console.log(meta.seller_fee_basis_points);
@@ -106,6 +113,7 @@ const Upload = () => {
     }
 
     if (
+      !publicKey ||
       !meta.name ||
       !meta.symbol ||
       !meta.description ||
@@ -243,6 +251,7 @@ const Upload = () => {
         });
     }
   };
+
   return (
     <>
       <NFTNavbar />
@@ -417,11 +426,25 @@ const Upload = () => {
                 <Box m={2}>
                   <Stack direction="row" spacing={2} justifyContent="center">
                     <TextField
+                      autoFocus
+                      margin="normal"
+                      required
+                      fullWidth
+                      type={"text"}
                       label="Wallet Address"
                       value={meta.walletAddress}
                       name="walletAddress"
                       onChange={onChangeData}
-                      required
+                      InputProps={{
+                        readOnly: true,
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <WalletMultiButton
+                              startIcon={<MdOutlineAccountBalanceWallet />}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                   </Stack>
                 </Box>

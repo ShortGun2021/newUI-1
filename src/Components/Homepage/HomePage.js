@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useEffect } from 'react'
+import { useEffect } from "react";
 import NFTNavbar from "./NFTNavbar";
 import DiscoverSection from "./DiscoverSection";
 import CardDisplay from "./CardDisplay";
@@ -10,54 +10,55 @@ import NFTCarousel from "./NFTCarousel";
 import TopCollections from "./TopCollection";
 import Footer from "./Footer";
 import { Spinner } from "react-bootstrap";
-import axios from 'axios'
+import { useWallet } from "@solana/wallet-adapter-react";
+import axios from "axios";
 
 const HomePage = () => {
   let loadingCount = 0;
   const [loadings, setloadings] = useState(0);
-  // console.log(loadings)
-  const [nftData, setNftData] = useState([{}])
+
+  const [nftData, setNftData] = useState([{}]);
   useEffect(() => {
     axios
-      .get('https://shortgun-backend.herokuapp.com/nft/getNFTs')
+      .get("https://shortgun-backend.herokuapp.com/nft/getNFTs")
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         // 'nftData' = response.data;
         // console.log('nftData'[0].nftName);
-        setNftData(response.data)
-        loadingCount = loadingCount + 1
-        setloadings(loadingCount)
+        setNftData(response.data);
+        loadingCount = loadingCount + 1;
+        setloadings(loadingCount);
         // return 'nftData';
         // console.log( nftData)
         // setNftData(response.data)
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         // window.alert("Registration Failed ");
         // console.log(error);
-      })
+      });
     // flag = 1;
-  }, [])
+  }, []);
 
   return (
     <>
       {loadings !== 1 ? (
         <div
           style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%,-50%)",
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%,-50%)',
           }}
         >
           <Spinner
             animation="border"
             style={{
-              fontSize: "50px",
-              color: "#6739B7",
-              width: "100px",
-              height: "100px",
-              margin: "50px auto 40px auto",
+              fontSize: '50px',
+              color: '#6739B7',
+              width: '100px',
+              height: '100px',
+              margin: '50px auto 40px auto',
             }}
             role="status"
           >
@@ -65,7 +66,7 @@ const HomePage = () => {
           </Spinner>
         </div>
       ) : (
-        ""
+        ''
       )}
       <div
         style={
@@ -81,16 +82,20 @@ const HomePage = () => {
       >
         <NFTNavbar />
         <DiscoverSection />
-        <CardDisplay setloadings={setloadings} loadingCount={loadingCount} nftData={nftData} />
+        <CardDisplay
+          setloadings={setloadings}
+          loadingCount={loadingCount}
+          nftData={nftData}
+        />
         <Banner />
-        <NFTCarousel />
+        <NFTCarousel nftData={nftData} />
         <TopCollections />
         <Categories nftData={nftData} />
         <LastSection />
         <Footer />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage
