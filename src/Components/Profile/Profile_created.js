@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Card,
   Button,
@@ -19,143 +20,100 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 require('bootstrap/dist/css/bootstrap.min.css')
 
-const cardDetails = [
-  {
-    image: 'https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg',
-    name: 'Rugby',
-    price: 0.188,
-    timeLeft: 15,
-  },
-  {
-    image: 'https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg',
-    name: 'Rugby',
-    price: 0.188,
-    timeLeft: 15,
-  },
-  {
-    image: 'https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg',
-    name: 'Rugby',
-    price: 0.188,
-    timeLeft: 15,
-  },
-  {
-    image: 'https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg',
-    name: 'Rugby',
-    price: 0.188,
-    timeLeft: 15,
-  },
-]
-const RenderCards = ({ card, nftData }) => {
-  return (
-    <Col md={4} sm={6} xs={12} lg={3} xl={3} className="mx-md-0 my-sm-3">
-      {nftData ? (
-        <Card
-          style={{
-            boxShadow: '0px 2px 10px #F8F8F8',
+let navigate;
 
-            borderRadius: '8px',
-          }}
-        >
-          <Card.Img
-            style={{ borderRadius: '8px 8px 0 0' }}
-            variant="top"
-            src={`data:image/png;base64,${card.nftImgBase64}`}
-          />
-          <Card.Body>
-            <Card.Title className="cardTitle">
-              <h5 style={{ display: 'inline' }}>
-                <b style={{ fontSize: 'large' }}>Rugby</b>
-              </h5>
-              <div
-                style={{
-                  float: 'right',
-                  textAlign: 'right',
-                  alignItems: 'flex-end',
-                }}
-              >
-                <p
-                  style={{
-                    fontSize: '17px',
-                    color: '#8A8A8A',
-                    marginBottom: '3px',
-                  }}
-                >
-                  Top Bid
-                </p>
-                <div style={{ marginBottom: '3px' }}>
-                  <Image
-                    src="https://coinalpha.app/images/empty-token-solana.png"
-                    height="20"
-                    width="20"
-                  ></Image>{' '}
-                  <span
-                    style={{
-                      fontSize: '18px',
-                      fontWeight: '700',
-                      marginLeft: '7px',
-                    }}
-                  >
-                    0.188
-                  </span>
-                </div>
-                <div>
-                  <p
-                    style={{
-                      fontSize: '17px',
-                      color: '#8A8A8A',
-                      marginTop: '3px',
-                      marginBottom: '3px',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    15 hours left
-                  </p>
-                </div>
-                <button
-                  style={{
-                    background: 'white',
-                    border: '0px solid white',
-                  }}
-                >
-                  <MdFavorite style={{ color: '#6739B7' }} />
-                </button>
-              </div>
-            </Card.Title>
-          </Card.Body>
-        </Card>
-      ) : (
-        <div>none</div>
-      )}
-    </Col>
+const Cards = ({ nftData }) => {
+  return (
+    <Col xm={4} className="py-3 py-sm-0 col-lg-4 col-md-4 col-12">
+      <Card
+        className="header-card"
+        onClick={() => {
+          navigate('/nftDetails', {
+            state: {
+              nftData: nftData
+            },
+          })
+        }}
+      >
+        {/* <Card.Img variant="top" src={card.image} /> nftData && nftData[0].nftImgBase64 */}
+        <Card.Img
+          variant="top"
+          src={nftData.nftImageUrl}
+        />
+        <Card.Body>
+          <Card.Title>
+            <h5>
+              <Image
+                rounded="true"
+                // src={card.avatar}
+                src={nftData.nftImageUrl}
+                height="35"
+                width="35"
+              ></Image>{' '}
+              <span className="card-nft-name">{nftData.nftName}</span>
+            </h5>
+            <div className="row text-muted" style={{ fontSize: "12px" }
+
+            }>
+              {' '}
+              <em className="">
+                ~ "{nftData.nftDescription?.substring(0, 100)}"<span className="mx-2 text-dark">....read more</span>
+              </em>
+            </div>
+
+
+
+          </Card.Title>
+          <Button className="card-checkout-btn mt-3 btn-sm">Checkout NFT</Button>
+          <button className="card-goinfo-btn mt-3 text-success font-weight-bold btn-sm">
+            {/* <GoInfo /> */}<span calsssName="">+{Math.floor(Math.random() * (30000 - 1)) / 100}%</span>
+          </button>
+        </Card.Body>
+      </Card>
+    </Col >
   )
 }
 
 export default function Profile_collected() {
-  const [nftData, setNftData] = useState([])
-  const [isLoading, setisLoading] = useState(false)
+  navigate = useNavigate();
+  const [nftData, setNftData] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
+  const [publicKey, setPublicKey] = useState("");
+  // const [mynftData, setMyNftData] = useState([]);
+  let mynftData = [];
 
-  const fetchNfts = async () => {
-    setisLoading(true)
-    try {
-      const res = await axios.get(
-        'https://shortgun-backend.herokuapp.com/nft/getNFTs'
-      )
-      setNftData(res.data)
-      setisLoading(false)
-    } catch (err) {
-      console.log(err)
+  const fetchNtfs = async () => {
+    setisLoading(true);
+    const res = await axios.get(
+      "https://shortgun-backend.herokuapp.com/nft/getNFTs"
+    );
+    // setNftData(res.data);
+
+    //sorting by new items
+    setNftData(res.data.reverse());
+
+    setisLoading(false);
+  };
+  useEffect(() => {
+    fetchNtfs();
+    setPublicKey(localStorage.getItem('publicKey'));
+  }, []);
+  if (nftData) {
+    for (const element of nftData) {
+      if (element.walletAddress === publicKey)
+        mynftData.push(element);
+      // setMyNftData(mynftData => [...mynftData, nftData[index]]);
     }
   }
-  useEffect(() => {
-    fetchNfts()
-  }, [])
 
-  console.log('data  ', nftData)
+  // console.log('data  ', nftData)
+  // console.log('publicKey', publicKey);
+  // console.log(nftData[0].walletAddress);
 
   return (
     <>
       <Container style={{ marginTop: '10px' }}>
-        <Container>
+        {/* <Container>
           <Form
             style={{
               width: '100%',
@@ -236,22 +194,23 @@ export default function Profile_collected() {
               </Col>
             </Row>
           </Form>
-        </Container>
+        </Container> */}
+
         {isLoading ? (
           <div
             style={{
-              display: 'flex',
-              justifyContent: 'center',
+              display: "flex",
+              justifyContent: "center",
             }}
           >
             <Spinner
               animation="border"
               style={{
-                fontSize: '50px',
-                color: '#6739B7',
-                width: '100px',
-                height: '100px',
-                margin: '50px auto 40px auto',
+                fontSize: "50px",
+                color: "#6739B7",
+                width: "100px",
+                height: "100px",
+                margin: "180px auto 40px auto",
               }}
               role="status"
             >
@@ -259,13 +218,25 @@ export default function Profile_collected() {
             </Spinner>
           </div>
         ) : (
-          <Container>
-            <Row>
-              {nftData.map((card, index) => {
-                return <RenderCards key={index} card={card} nftData={nftData} />
-              })}
-            </Row>
-          </Container>
+          !mynftData ? (
+            <div className="mt-4 py-4 text-center">
+              <p className="text-muted"><h4><strong>You haven't created any NFT</strong></h4></p>
+              <Link to="/admin"><Button className="card-checkout-btn  btn-sm">Create Now</Button></Link>
+            </div>
+          ) : (
+            <Container style={{ marginTop: "20px" }}>
+              <Row>
+                {mynftData.map((_card, index) => {
+
+                  return (
+                    <Cards key={index} nftData={mynftData[index]} />
+                  );
+
+                })}
+
+              </Row>
+            </Container>
+          )
         )}
       </Container>
     </>

@@ -74,20 +74,20 @@ function DesktopviewNav() {
             <div style={{ display: "inline-block" }}>
               <Navbar.Collapse id="navbarScroll">
                 <Form className="navItems nft-nav-form">
-                  <Link to="/search">
-                    <FormControl
-                      type="search"
-                      placeholder="🔍 Search items, collections and people"
-                      className="me-2 nft-nav-formcontrol"
-                      aria-label="Search"
-                      style={{
-                        width: "310px",
-                        border: "1px solid #3D3D3D",
-                        borderRadius: "9px",
-                        textDecoration: "underline white",
-                      }}
-                    />
-                  </Link>
+                  {/* <Link to="/search"> */}
+                  <FormControl
+                    type="search"
+                    placeholder="🔍 Search items, collections and people"
+                    className="me-2 nft-nav-formcontrol"
+                    aria-label="Search"
+                    style={{
+                      width: "310px",
+                      border: "1px solid #3D3D3D",
+                      borderRadius: "9px",
+                      textDecoration: "underline white",
+                    }}
+                  />
+                  {/* </Link> */}
                 </Form>
                 <Nav
                   className="me-auto my-2 my-lg-0 navItems nft-nav"

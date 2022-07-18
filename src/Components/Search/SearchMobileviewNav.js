@@ -37,19 +37,19 @@ function SearchMobileviewnav() {
           <div style={{ alignItems: 'flex-end', marginRight: '2px' }}>
             {' '}
             <Form>
-              <Link to="/search">
-                <FormControl
-                  type="search"
-                  placeholder="🔍 Search items, collections and people"
-                  className="me-2"
-                  aria-label="Search"
-                  style={{
-                    border: '1px solid #3D3D3D',
-                    borderRadius: '9px',
-                    textDecoration: 'underline white',
-                  }}
-                />
-              </Link>
+              {/* <Link to="/search"> */}
+              <FormControl
+                type="search"
+                placeholder="🔍 Search items, collections and people"
+                className="me-2"
+                aria-label="Search"
+                style={{
+                  border: '1px solid #3D3D3D',
+                  borderRadius: '9px',
+                  textDecoration: 'underline white',
+                }}
+              />
+              {/* </Link> */}
             </Form>
           </div>
 

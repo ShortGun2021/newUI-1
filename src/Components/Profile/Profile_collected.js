@@ -48,7 +48,7 @@ const cardDetails = [
 ]
 const RenderCards = ({ index, card, nftData }) => {
   // console.log(nftData[index].nftCreatorDetails);
-  console.log(card.nftCreatorDetails)
+  // console.log(card.nftCreatorDetails)
   return card.nftCreatorDetails === 'srijan@gmail.com' ? (
     <Col md={4} sm={6} xs={12} lg={3} xl={3} className="mx-md-0 my-sm-3">
       <Card
@@ -154,14 +154,14 @@ export default function Profile_collected({ setloadings, loadingCount }) {
     fetchNfts()
   }, [])
 
-  console.log('data  ', nftData)
+  // console.log('data  ', nftData)
 
   return (
     <>
       {/* <h1>{location.state.nftID}</h1> */}
       <Container style={{ marginTop: '10px' }}>
         <Container>
-          <Form
+          {/* <Form
             style={{
               width: '100%',
               display: 'flex',
@@ -241,7 +241,7 @@ export default function Profile_collected({ setloadings, loadingCount }) {
                 </div>
               </Col>
             </Row>
-          </Form>
+          </Form> */}
         </Container>
         {isLoading ? (
           <div
