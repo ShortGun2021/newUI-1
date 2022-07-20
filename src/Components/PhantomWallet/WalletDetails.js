@@ -52,7 +52,6 @@ const WalletDetails = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  console.log("3.00".includes("."));
   const disconnectWallet = async () => {
     if (!publicKey) throw new WalletNotConnectedError();
     await disconnect();
