@@ -1,3 +1,7 @@
 .lastSection-button{    
     margin:3%; padding:0.5% 5%; background-color:#6739B7; font-size:large
 }
+
+.lastSection-button:hover{
+    background-color: #552f97;
+  }

@@ -63,6 +63,9 @@
   height: 42px;
   font-size: 18px;
 }
+.discover-explore-btn:hover{
+  background-color: #552f97;
+}
 .discover-create-btn {
   background: #ffffff;
   color: black;
@@ -74,6 +77,7 @@
 }
 .discover-create-btn:hover {
   cursor: not-allowed;
+  background-color: #552f97;
 }
 .learn-more-anchor {
   text-decoration: none;
