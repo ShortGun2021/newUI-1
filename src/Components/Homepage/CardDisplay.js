@@ -1,12 +1,12 @@
-import { useNavigate } from 'react-router-dom'
-import { Card, Button, Container, Col, Row, Image } from 'react-bootstrap'
-import '../Styles/HomePageStyles/CardDisplay.css'
-import { GoInfo } from 'react-icons/go'
-import { Recommend } from '@mui/icons-material'
+import { useNavigate } from "react-router-dom";
+import { Card, Button, Container, Col, Row, Image } from "react-bootstrap";
+import "../Styles/HomePageStyles/CardDisplay.css";
+import { GoInfo } from "react-icons/go";
+import { Recommend } from "@mui/icons-material";
 
-require('bootstrap/dist/css/bootstrap.min.css')
+require("bootstrap/dist/css/bootstrap.min.css");
 
-let navigate
+let navigate;
 
 const Cards = ({ nftData }) => {
   // console.log(nftData);
@@ -15,18 +15,15 @@ const Cards = ({ nftData }) => {
       <Card
         className="header-card"
         onClick={() => {
-          navigate('/nftDetails', {
+          navigate("/nftDetails", {
             state: {
-              nftData: nftData
+              nftData: nftData,
             },
-          })
+          });
         }}
       >
         {/* <Card.Img variant="top" src={card.image} /> nftData && nftData[0].nftImgBase64 */}
-        <Card.Img
-          variant="top"
-          src={nftData.nftImageUrl}
-        />
+        <Card.Img variant="top" src={nftData.nftImageUrl} />
         <Card.Body>
           <Card.Title>
             <h5>
@@ -36,36 +33,35 @@ const Cards = ({ nftData }) => {
                 src={nftData.nftImageUrl}
                 height="35"
                 width="35"
-              ></Image>{' '}
+              ></Image>{" "}
               <span className="card-nft-name">{nftData.nftName}</span>
             </h5>
-            <div className="row text-muted" style={{ fontSize: "14px" }
-
-            }>
-              {' '}
+            <div className="row text-muted" style={{ fontSize: "14px" }}>
+              {" "}
               <em className="">
-                ~ "{nftData.nftDescription?.substring(0, 100)}"<span className="mx-2 text-dark">....read more</span>
+                ~ "{nftData.nftDescription?.substring(0, 100)}"
+                <span className="mx-2 text-dark">....read more</span>
               </em>
             </div>
-
-
-
           </Card.Title>
           <Button className="card-checkout-btn mt-3">Checkout NFT</Button>
           <button className="card-goinfo-btn mt-3 text-success font-weight-bold">
-            {/* <GoInfo /> */}<span calsssName="">+{Math.floor(Math.random() * (30000 - 1)) / 100}%</span>
+            {/* <GoInfo /> */}
+            <span calsssName="">
+              +{Math.floor(Math.random() * (30000 - 1)) / 100}%
+            </span>
           </button>
         </Card.Body>
       </Card>
-    </Col >
-  )
-}
+    </Col>
+  );
+};
 
 export default function HeaderCard({ setloadings, loadingCount, nftData }) {
   // console.log(nftData);
-  const RecommendCard = nftData.slice(nftData.length - 6).reverse()
-  console.log(RecommendCard)
-  navigate = useNavigate()
+  const RecommendCard = nftData.slice(nftData.length - 6).reverse();
+  // console.log(RecommendCard)
+  navigate = useNavigate();
   return (
     <>
       <Container>
@@ -73,10 +69,10 @@ export default function HeaderCard({ setloadings, loadingCount, nftData }) {
           <Row>
             {
               // const RecommendCard = nftData.slice(nftData.length - 6).reverse()
-              RecommendCard && RecommendCard.map((element, index) => {
-                return (<Cards key={index} nftData={element} />)
-              })
-
+              RecommendCard &&
+                RecommendCard.map((element, index) => {
+                  return <Cards key={index} nftData={element} />;
+                })
             }
             {/* {nftData && (() => {
               let dataLength = nftData.length
@@ -98,5 +94,5 @@ export default function HeaderCard({ setloadings, loadingCount, nftData }) {
         </Container>
       </Container>
     </>
-  )
+  );
 }

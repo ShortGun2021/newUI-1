@@ -7,90 +7,90 @@ import {
   Image,
   Form,
   ButtonGroup,
-} from 'react-bootstrap'
-import { MdFavorite } from 'react-icons/md'
-import { AiOutlineSearch } from 'react-icons/ai'
-import { BsGrid } from 'react-icons/bs'
-import { TbGridDots } from 'react-icons/tb'
-import '../Styles/ProfilePageStyles/profileCollected.css'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-require('bootstrap/dist/css/bootstrap.min.css')
+} from "react-bootstrap";
+import { MdFavorite } from "react-icons/md";
+import { AiOutlineSearch } from "react-icons/ai";
+import { BsGrid } from "react-icons/bs";
+import { TbGridDots } from "react-icons/tb";
+import "../Styles/ProfilePageStyles/profileCollected.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
+require("bootstrap/dist/css/bootstrap.min.css");
 
 const cardDetails = [
   {
-    image: 'https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg',
-    name: 'Rugby',
+    image: "https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg",
+    name: "Rugby",
     price: 0.188,
     timeLeft: 15,
   },
   {
-    image: 'https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg',
-    name: 'Rugby',
+    image: "https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg",
+    name: "Rugby",
     price: 0.188,
     timeLeft: 15,
   },
   {
-    image: 'https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg',
-    name: 'Rugby',
+    image: "https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg",
+    name: "Rugby",
     price: 0.188,
     timeLeft: 15,
   },
   {
-    image: 'https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg',
-    name: 'Rugby',
+    image: "https://www.journaldugeek.com/content/uploads/2022/03/nft-ape.jpg",
+    name: "Rugby",
     price: 0.188,
     timeLeft: 15,
   },
-]
+];
 const RenderCards = ({ card, nftData }) => {
   return (
     <Col md={4} sm={6} xs={12} lg={3} xl={3} className="mx-md-0 my-sm-3">
       {nftData ? (
         <Card
           style={{
-            boxShadow: '0px 2px 10px #F8F8F8',
+            boxShadow: "0px 2px 10px #F8F8F8",
 
-            borderRadius: '8px',
+            borderRadius: "8px",
           }}
         >
           <Card.Img
-            style={{ borderRadius: '8px 8px 0 0' }}
+            style={{ borderRadius: "8px 8px 0 0" }}
             variant="top"
             src={`data:image/png;base64,${card.nftImgBase64}`}
           />
           <Card.Body>
             <Card.Title className="cardTitle">
-              <h5 style={{ display: 'inline' }}>
-                <b style={{ fontSize: 'large' }}>Rugby</b>
+              <h5 style={{ display: "inline" }}>
+                <b style={{ fontSize: "large" }}>Rugby</b>
               </h5>
               <div
                 style={{
-                  float: 'right',
-                  textAlign: 'right',
-                  alignItems: 'flex-end',
+                  float: "right",
+                  textAlign: "right",
+                  alignItems: "flex-end",
                 }}
               >
                 <p
                   style={{
-                    fontSize: '17px',
-                    color: '#8A8A8A',
-                    marginBottom: '3px',
+                    fontSize: "17px",
+                    color: "#8A8A8A",
+                    marginBottom: "3px",
                   }}
                 >
                   Top Bid
                 </p>
-                <div style={{ marginBottom: '3px' }}>
+                <div style={{ marginBottom: "3px" }}>
                   <Image
                     src="https://coinalpha.app/images/empty-token-solana.png"
                     height="20"
                     width="20"
-                  ></Image>{' '}
+                  ></Image>{" "}
                   <span
                     style={{
-                      fontSize: '18px',
-                      fontWeight: '700',
-                      marginLeft: '7px',
+                      fontSize: "18px",
+                      fontWeight: "700",
+                      marginLeft: "7px",
                     }}
                   >
                     0.188
@@ -99,11 +99,11 @@ const RenderCards = ({ card, nftData }) => {
                 <div>
                   <p
                     style={{
-                      fontSize: '17px',
-                      color: '#8A8A8A',
-                      marginTop: '3px',
-                      marginBottom: '3px',
-                      whiteSpace: 'nowrap',
+                      fontSize: "17px",
+                      color: "#8A8A8A",
+                      marginTop: "3px",
+                      marginBottom: "3px",
+                      whiteSpace: "nowrap",
                     }}
                   >
                     15 hours left
@@ -111,11 +111,11 @@ const RenderCards = ({ card, nftData }) => {
                 </div>
                 <button
                   style={{
-                    background: 'white',
-                    border: '0px solid white',
+                    background: "white",
+                    border: "0px solid white",
                   }}
                 >
-                  <MdFavorite style={{ color: '#6739B7' }} />
+                  <MdFavorite style={{ color: "#6739B7" }} />
                 </button>
               </div>
             </Card.Title>
@@ -125,32 +125,32 @@ const RenderCards = ({ card, nftData }) => {
         <div>none</div>
       )}
     </Col>
-  )
-}
+  );
+};
 
 export default function CollectionCards({ setloadings, loadingCount }) {
-  const [nftData, setNftData] = useState([])
+  const [nftData, setNftData] = useState([]);
   const fetchNfts = async () => {
     try {
       const res = await axios.get(
-        'https://shortgun-backend.herokuapp.com/nft/getNFTs'
-      )
-      setNftData(res.data)
-      loadingCount = loadingCount + 1
-      setloadings(loadingCount)
+        "https://shortgun-backend.herokuapp.com/nft/getNFTs"
+      );
+      setNftData(res.data);
+      loadingCount = loadingCount + 1;
+      setloadings(loadingCount);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
   useEffect(() => {
-    fetchNfts()
-  }, [])
+    fetchNfts();
+  }, []);
 
-  console.log('data  ', nftData)
+  // console.log('data  ', nftData)
 
   return (
     <>
-      <Container style={{ marginTop: '10px' }}>
+      <Container style={{ marginTop: "10px" }}>
         <Container>
           {/* <Form
             style={{
@@ -238,11 +238,11 @@ export default function CollectionCards({ setloadings, loadingCount }) {
         <Container>
           <Row>
             {nftData.map((card, index) => {
-              return <RenderCards key={index} card={card} nftData={nftData} />
+              return <RenderCards key={index} card={card} nftData={nftData} />;
             })}
           </Row>
         </Container>
       </Container>
     </>
-  )
+  );
 }

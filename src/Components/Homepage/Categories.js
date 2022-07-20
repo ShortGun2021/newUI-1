@@ -1,5 +1,14 @@
-import { useNavigate } from "react-router-dom"
-import { Card, Button, ButtonGroup, Container, Col, Row, Image, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import {
+  Card,
+  Button,
+  ButtonGroup,
+  Container,
+  Col,
+  Row,
+  Image,
+  Form,
+} from "react-bootstrap";
 import { MdFavorite } from "react-icons/md";
 // import {
 
@@ -29,18 +38,15 @@ const Cards = ({ nftData }) => {
       <Card
         className="header-card"
         onClick={() => {
-          navigate('/nftDetails', {
+          navigate("/nftDetails", {
             state: {
-              nftData: nftData
+              nftData: nftData,
             },
-          })
+          });
         }}
       >
         {/* <Card.Img variant="top" src={card.image} /> nftData && nftData[0].nftImgBase64 */}
-        <Card.Img
-          variant="top"
-          src={nftData.nftImageUrl}
-        />
+        <Card.Img variant="top" src={nftData.nftImageUrl} />
         <Card.Body>
           <Card.Title>
             <h5>
@@ -50,44 +56,43 @@ const Cards = ({ nftData }) => {
                 src={nftData.nftImageUrl}
                 height="35"
                 width="35"
-              ></Image>{' '}
+              ></Image>{" "}
               <span className="card-nft-name">{nftData.nftName}</span>
             </h5>
-            <div className="row text-muted" style={{ fontSize: "12px" }
-
-            }>
-              {' '}
+            <div className="row text-muted" style={{ fontSize: "12px" }}>
+              {" "}
               <em className="">
-                ~ "{nftData.nftDescription?.substring(0, 100)}"<span className="mx-2 text-dark">....read more</span>
+                ~ "{nftData.nftDescription?.substring(0, 100)}"
+                <span className="mx-2 text-dark">....read more</span>
               </em>
             </div>
-
-
-
           </Card.Title>
-          <Button className="card-checkout-btn mt-3 btn-sm">Checkout NFT</Button>
+          <Button className="card-checkout-btn mt-3 btn-sm">
+            Checkout NFT
+          </Button>
           <button className="card-goinfo-btn mt-3 text-success font-weight-bold btn-sm">
-            {/* <GoInfo /> */}<span calsssName="">+{Math.floor(Math.random() * (30000 - 1)) / 100}%</span>
+            {/* <GoInfo /> */}
+            <span calsssName="">
+              +{Math.floor(Math.random() * (30000 - 1)) / 100}%
+            </span>
           </button>
         </Card.Body>
       </Card>
-    </Col >
-  )
-}
+    </Col>
+  );
+};
 
 export default function Categories({ nftData }) {
   navigate = useNavigate();
   const [Btnname, setBtnname] = useState("All Categories");
 
-  console.log(Btnname);
-  console.log(nftData);
+  // console.log(Btnname);
+  // console.log(nftData);
   //recommended 9 cards
   const RecommendCard = nftData.slice(nftData.length - 6).reverse();
 
-
   return (
     <>
-
       <div
         style={{
           width: "75%",
@@ -255,29 +260,30 @@ export default function Categories({ nftData }) {
 
           <Container style={{ marginTop: "20px" }}>
             <Row>
-              {RecommendCard && RecommendCard.map((element, index) => {
-                if (Btnname === "All Categories") {
-                  return (
-                    <Cards key={index} nftData={element} />
-                  );
-                }
-                else {
-                  if (Btnname === element.nftCategory) {
-                    return (
-                      <Cards key={index} nftData={element} />
-                    );
+              {RecommendCard &&
+                RecommendCard.map((element, index) => {
+                  if (Btnname === "All Categories") {
+                    return <Cards key={index} nftData={element} />;
+                  } else {
+                    if (Btnname === element.nftCategory) {
+                      return <Cards key={index} nftData={element} />;
+                    }
                   }
-                }
-              })}
-
+                })}
             </Row>
           </Container>
-
         </div>
       </div>
 
       <div className="col-md-12 text-center">
-        <Button className="view-all-btn" onClick={() => { navigate("/explore") }}>View All</Button>
+        <Button
+          className="view-all-btn"
+          onClick={() => {
+            navigate("/explore");
+          }}
+        >
+          View All
+        </Button>
       </div>
     </>
   );

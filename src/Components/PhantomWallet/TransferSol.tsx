@@ -6,7 +6,7 @@ import React, { FC, useCallback } from "react";
 const TransferSol: FC = () => {
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
-  console.log(publicKey?.toBase58());
+  // console.log(publicKey?.toBase58());
 
   const onClick = useCallback(async () => {
     if (!publicKey) throw new WalletNotConnectedError();

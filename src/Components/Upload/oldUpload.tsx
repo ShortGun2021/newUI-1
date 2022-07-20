@@ -71,7 +71,7 @@ const Upload = () => {
     });
   };
   const onChangeAttr = (e, index) => {
-    console.log(index, e.target.name);
+    // console.log(index, e.target.name);
     const val = [...meta.attributes];
     val[index][e.target.name] = e.target.value;
     setmeta({
@@ -106,7 +106,7 @@ const Upload = () => {
   };
 
   const onchangeAddress = (e, index) => {
-    console.log(index, e.target.name);
+    // console.log(index, e.target.name);
     const val = [...meta.properties.creators];
     val[index][e.target.name] = e.target.value;
 
@@ -167,26 +167,26 @@ const Upload = () => {
   ) => {
     // data for submit
 
-    console.log(imageList);
-    console.log(addUpdateIndex);
+    // console.log(imageList);
+    // console.log(addUpdateIndex);
     setImages(imageList as never[]);
 
     const im = imageList[0];
     let d = im[Object.keys(im)[0]];
-    console.log(d);
+    // console.log(d);
     setData(d);
   };
   // ----------------------------------------------------------------------------------
   // rwearve
   const Ar = async () => {
     //optionally check if fields are empty
-    console.log(meta);
-    console.log(meta.symbol);
-    console.log(meta.description);
-    console.log(meta.seller_fee_basis_points);
-    console.log(meta.image);
+    // console.log(meta);
+    // console.log(meta.symbol);
+    // console.log(meta.description);
+    // console.log(meta.seller_fee_basis_points);
+    // console.log(meta.image);
     // console.log(meta.attributes[0].trait_type);
-    console.log(meta.attributes.length);
+    // console.log(meta.attributes.length);
     for (let i = 0; i < meta.attributes.length; i++) {
       if (
         !meta.attributes[i].trait_type ||
