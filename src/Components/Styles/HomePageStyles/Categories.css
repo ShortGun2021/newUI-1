@@ -46,3 +46,7 @@
 .category-card:hover{
     cursor: pointer;
 }
+
+.view-all-btn:hover{
+    background-color: #552f97;
+  }

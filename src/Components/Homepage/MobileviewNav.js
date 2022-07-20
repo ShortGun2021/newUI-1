@@ -91,7 +91,7 @@ function Mobileviewnav() {
                   Favourites
                 </Nav.Link>
               </Link>
-              <Link style={{ textDecoration: "none" }} to="/collections">
+              <Link style={{ textDecoration: "none" }} to="/">
                 <Link to="/profile">
                   <Button className="navItems" variant="light">
                     <MdPerson style={{ fontSize: "25px" }} />
