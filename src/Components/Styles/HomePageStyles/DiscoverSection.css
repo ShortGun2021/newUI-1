@@ -8,11 +8,11 @@
 
 @media screen and (min-width: 1050px) {
   .discover-heading {
-    margin: 3% 25% 0 25%;
+    margin: 3% 8% 0 14%;
   }
   .discover-text-heading {
-    font-size: '35px';
-    line-height: 50px;
+    font-size: 68px;
+    line-height: 75px;
   }
 }
 
