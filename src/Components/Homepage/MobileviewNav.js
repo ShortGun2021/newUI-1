@@ -24,17 +24,7 @@ function Mobileviewnav() {
                 src="https://static.wixstatic.com/media/ccc269_fef35fd3445e47099ff2ba432afd2ead~mv2.png/v1/fill/w_60,h_50,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Original_edited_edited_edited.png"
                 alt=""
               />
-              <span
-                style={{
-                  fontWeight: "500",
-                  fontStyle: "Ubuntu",
-                  fontSize: "22px",
-                  margin: "5%",
-                }}
-                className="Brandname"
-              >
-                SHORTGUN
-              </span>
+              
             </Navbar.Brand>
           </Link>
 
