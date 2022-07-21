@@ -17,6 +17,7 @@ import axios from "axios";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { useWallet } from "@solana/wallet-adapter-react";
+const { REACT_APP_SERVER_URL } = process.env;
 
 const theme = createTheme();
 
@@ -35,6 +36,7 @@ const Login = () => {
 
     const config = {
       header: {
+        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
     };
@@ -42,12 +44,12 @@ const Login = () => {
       // console.log(email,password);
       axios
         .post(
-          "https://shortgun-backend.herokuapp.com/user/signin",
-          // "http://localhost:5000/user/signin",
+          // "https://shortgun-backend.herokuapp.com/user/signin",
+          `${REACT_APP_SERVER_URL}/user/signin`,
           {
             publicID,
           },
-          config
+          config,
         )
         .then((response) => {
           console.log(response.data);

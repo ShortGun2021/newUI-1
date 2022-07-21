@@ -19,6 +19,7 @@ import '../Styles/ProfilePageStyles/profileCollected.css'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 require('bootstrap/dist/css/bootstrap.min.css')
+const { REACT_APP_SERVER_URL } = process.env;
 
 const cardDetails = [
   {
@@ -140,7 +141,7 @@ export default function Profile_collected({ setloadings, loadingCount }) {
     setisLoading(true)
     try {
       const res = await axios.get(
-        'https://shortgun-backend.herokuapp.com/nft/getNFTs'
+        `${REACT_APP_SERVER_URL}/nft/getNFTs`
       )
       setNftData(res.data)
       loadingCount = loadingCount + 1

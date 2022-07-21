@@ -12,6 +12,8 @@ import Footer from "./Footer";
 import { Spinner } from "react-bootstrap";
 import { useWallet } from "@solana/wallet-adapter-react";
 import axios from "axios";
+// require('dotenv').config();
+const { REACT_APP_SERVER_URL } = process.env;
 
 const HomePage = () => {
   let loadingCount = 0;
@@ -19,8 +21,15 @@ const HomePage = () => {
 
   const [nftData, setNftData] = useState([{}]);
   useEffect(() => {
+    const config = {
+      header: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+    };
     axios
-      .get("https://shortgun-backend.herokuapp.com/nft/getNFTs")
+      // .get("https://shortgun-backend.herokuapp.com/nft/getNFTs", config)
+      .get(`${REACT_APP_SERVER_URL}/nft/getNFTs`)
       .then((response) => {
         console.log(response.data);
         // 'nftData' = response.data;

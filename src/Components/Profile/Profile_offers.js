@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Image, Spinner, Table } from 'react-bootstrap'
 import '../Styles/ProfilePageStyles/profileActivity.css'
+const { REACT_APP_SERVER_URL } = process.env;
 
 const data = [
   {
@@ -100,7 +101,7 @@ function Profile_offers() {
   const fetchNtfs = async () => {
     setisLoading(true)
     const res = await axios.get(
-      'https://shortgun-backend.herokuapp.com/nft/getNFTs'
+      `${REACT_APP_SERVER_URL}/nft/getNFTs`
     )
     setNftData(res.data)
     setisLoading(false)

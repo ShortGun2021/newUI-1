@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Card, Button, Container, Col, Row, Image } from 'react-bootstrap'
 import { MdFavorite } from 'react-icons/md'
 import { Spinner } from 'react-bootstrap'
+const { REACT_APP_SERVER_URL } = process.env;
 
 require('bootstrap/dist/css/bootstrap.min.css')
 const cardDetails = [
@@ -119,7 +120,7 @@ function Profile_favourites() {
 
     try {
       const res = await axios.get(
-        'https://shortgun-backend.herokuapp.com/nft/getNFTs'
+        `${REACT_APP_SERVER_URL}/nft/getNFTs`
       )
       setNftData(res.data)
       setisLoading(false)
