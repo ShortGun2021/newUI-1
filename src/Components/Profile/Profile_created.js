@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
   Button,
@@ -29,18 +29,15 @@ const Cards = ({ nftData }) => {
       <Card
         className="header-card"
         onClick={() => {
-          navigate('/nftDetails', {
+          navigate("/nftDetails", {
             state: {
-              nftData: nftData
+              nftData: nftData,
             },
-          })
+          });
         }}
       >
         {/* <Card.Img variant="top" src={card.image} /> nftData && nftData[0].nftImgBase64 */}
-        <Card.Img
-          variant="top"
-          src={nftData.nftImageUrl}
-        />
+        <Card.Img variant="top" src={nftData.nftImageUrl} />
         <Card.Body>
           <Card.Title>
             <h5>
@@ -50,38 +47,40 @@ const Cards = ({ nftData }) => {
                 src={nftData.nftImageUrl}
                 height="35"
                 width="35"
-              ></Image>{' '}
+              ></Image>{" "}
               <span className="card-nft-name">{nftData.nftName}</span>
             </h5>
-            <div className="row text-muted" style={{ fontSize: "12px" }
-
-            }>
-              {' '}
+            <div className="row text-muted" style={{ fontSize: "12px" }}>
+              {" "}
               <em className="">
-                ~ "{nftData.nftDescription?.substring(0, 100)}"<span className="mx-2 text-dark">....read more</span>
+                ~ "{nftData.nftDescription?.substring(0, 100)}"
+                <span className="mx-2 text-dark">....read more</span>
               </em>
             </div>
-
-
-
           </Card.Title>
-          <Button className="card-checkout-btn mt-3 btn-sm">Checkout NFT</Button>
+          <Button className="card-checkout-btn mt-3 btn-sm">
+            Checkout NFT
+          </Button>
           <button className="card-goinfo-btn mt-3 text-success font-weight-bold btn-sm">
-            {/* <GoInfo /> */}<span calsssName="">+{Math.floor(Math.random() * (30000 - 1)) / 100}%</span>
+            {/* <GoInfo /> */}
+            <span calsssName="">
+              +{Math.floor(Math.random() * (30000 - 1)) / 100}%
+            </span>
           </button>
         </Card.Body>
       </Card>
-    </Col >
-  )
-}
+    </Col>
+  );
+};
 
 export default function Profile_collected() {
   navigate = useNavigate();
   const [nftData, setNftData] = useState([]);
+  const [mynftData, setMynftData] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [publicKey, setPublicKey] = useState("");
   // const [mynftData, setMyNftData] = useState([]);
-  let mynftData = [];
+  // let mynftData = [];
 
   const fetchNtfs = async () => {
     setisLoading(true);
@@ -97,15 +96,18 @@ export default function Profile_collected() {
   };
   useEffect(() => {
     fetchNtfs();
-    setPublicKey(localStorage.getItem('publicKey'));
+    setPublicKey(localStorage.getItem("publicKey"));
   }, []);
-  if (nftData) {
-    for (const element of nftData) {
-      if (element.walletAddress === publicKey)
-        mynftData.push(element);
-      // setMyNftData(mynftData => [...mynftData, nftData[index]]);
+  useEffect(() => {
+    if (nftData) {
+      setMynftData([]);
+      for (const element of nftData) {
+        if (element.walletAddress === publicKey)
+          setMynftData([...mynftData, element]);
+        // setMyNftData(mynftData => [...mynftData, nftData[index]]);
+      }
     }
-  }
+  }, [nftData]);
 
   // console.log('data  ', nftData)
   // console.log('publicKey', publicKey);
@@ -113,7 +115,7 @@ export default function Profile_collected() {
 
   return (
     <>
-      <Container style={{ marginTop: '10px' }}>
+      <Container style={{ marginTop: "10px" }}>
         {/* <Container>
           <Form
             style={{
@@ -218,28 +220,27 @@ export default function Profile_collected() {
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           </div>
+        ) : mynftData.length === 0 ? (
+          <div className="mt-4 py-4 text-center">
+            <p className="text-muted">
+              <h4>
+                <strong>You haven't created any NFT</strong>
+              </h4>
+            </p>
+            <Link to="/admin">
+              <Button className="card-checkout-btn  btn-sm">Create Now</Button>
+            </Link>
+          </div>
         ) : (
-          !mynftData ? (
-            <div className="mt-4 py-4 text-center">
-              <p className="text-muted"><h4><strong>You haven't created any NFT</strong></h4></p>
-              <Link to="/admin"><Button className="card-checkout-btn  btn-sm">Create Now</Button></Link>
-            </div>
-          ) : (
-            <Container style={{ marginTop: "20px" }}>
-              <Row>
-                {mynftData.map((_card, index) => {
-
-                  return (
-                    <Cards key={index} nftData={mynftData[index]} />
-                  );
-
-                })}
-
-              </Row>
-            </Container>
-          )
+          <Container style={{ marginTop: "20px" }}>
+            <Row>
+              {mynftData.map((_card, index) => {
+                return <Cards key={index} nftData={mynftData[index]} />;
+              })}
+            </Row>
+          </Container>
         )}
       </Container>
     </>
-  )
+  );
 }

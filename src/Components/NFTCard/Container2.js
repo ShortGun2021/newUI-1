@@ -1,6 +1,6 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { Dropdown } from 'react-bootstrap'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Dropdown } from "react-bootstrap";
 import {
   Card,
   Button,
@@ -10,126 +10,129 @@ import {
   Image,
   Form,
   ButtonGroup,
-} from 'react-bootstrap'
-import { MdOutlineFlag } from 'react-icons/md'
-import { FiLink2 } from 'react-icons/fi'
-import { BsShareFill } from 'react-icons/bs'
-import { IoReload } from 'react-icons/io5'
+} from "react-bootstrap";
+import { MdOutlineFlag } from "react-icons/md";
+import { FiLink2 } from "react-icons/fi";
+import { BsShareFill } from "react-icons/bs";
+import { IoReload } from "react-icons/io5";
 
-import { FaHeart } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
+import { FaHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-require('bootstrap/dist/css/bootstrap.min.css')
+require("bootstrap/dist/css/bootstrap.min.css");
 
 const Container2 = ({ nftData }) => {
-  const navigate = useNavigate()
-  console.log(nftData)
+  const navigate = useNavigate();
+  // console.log(nftData)
 
   //bid placing
   const submitHandler = async (id) => {
-    console.log(id)
+    // console.log(id)
 
     await axios
-      .post('https://shortgun-backend.herokuapp.com/nft/buyNFTs', {
+      .post("https://shortgun-backend.herokuapp.com/nft/buyNFTs", {
         // nftID: "62a42ed7cc03d00c218c8dca",
         // nftID: nftData[0]._id,
         nftID: id,
-        buyerEmail: 'srijan@gmail.com',
+        buyerEmail: "srijan@gmail.com",
         // buyerEmail: localStorage.getItem("buyerEmail"),
       })
       .then((response) => {
-        alert('NFT Buying Success. Creator Updated')
-        console.log(response)
-        console.log(id)
-        navigate('/profile', {
+        alert("NFT Buying Success. Creator Updated");
+        console.log(response);
+        console.log(id);
+        navigate("/profile", {
           state: {
             nftID: id,
           },
-        })
+        });
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
   return (
     <>
       <div
         classNameName="d-flex justify-content-center"
-        style={{ float: 'right' }}
+        style={{ float: "right" }}
       >
         <ButtonGroup
           style={{
-            display: 'inline-block',
-            marginLeft: '10px',
-            display: 'flex',
-            flexWrap: 'nowrap',
+            display: "inline-block",
+            marginLeft: "10px",
+            display: "flex",
+            flexWrap: "nowrap",
           }}
         >
           <Button
             variant="light"
             style={{
-              color: '#737373',
-              border: '1px solid #CFCFCF',
-              borderRadius: '6px 0 0 6px',
-              height: '51px',
-              width: '50px',
+              color: "#737373",
+              border: "1px solid #CFCFCF",
+              borderRadius: "6px 0 0 6px",
+              height: "51px",
+              width: "50px",
             }}
           >
-            {' '}
-            <IoReload style={{ fontSize: '22px' }} />{' '}
+            {" "}
+            <IoReload style={{ fontSize: "22px" }} />{" "}
           </Button>
           <Button
             variant="light"
             style={{
-              color: '#737373',
-              border: '1px solid #CFCFCF',
-              borderRadius: '0 0 0 0',
-              height: '51px',
-              width: '50px',
+              color: "#737373",
+              border: "1px solid #CFCFCF",
+              borderRadius: "0 0 0 0",
+              height: "51px",
+              width: "50px",
             }}
           >
-            {' '}
-            <FiLink2 style={{ fontSize: '22px' }} />{' '}
-          </Button>
-
-          <Button
-            variant="light"
-            style={{
-              color: '#737373',
-              border: '1px solid #CFCFCF',
-              borderRadius: '0 0 0 0',
-              height: '51px',
-              width: '50px',
-            }}
-          >
-            {' '}
-            <BsShareFill style={{ fontSize: '18px' }} />{' '}
+            {" "}
+            <FiLink2 style={{ fontSize: "22px" }} />{" "}
           </Button>
 
           <Button
             variant="light"
             style={{
-              color: '#737373',
-              border: '1px solid #CFCFCF',
-              borderRadius: '0 6px 6px 0',
-              height: '51px',
-              width: '50px',
+              color: "#737373",
+              border: "1px solid #CFCFCF",
+              borderRadius: "0 0 0 0",
+              height: "51px",
+              width: "50px",
             }}
           >
-            {' '}
-            <MdOutlineFlag style={{ fontSize: '25px' }} />{' '}
+            {" "}
+            <BsShareFill style={{ fontSize: "18px" }} />{" "}
+          </Button>
+
+          <Button
+            variant="light"
+            style={{
+              color: "#737373",
+              border: "1px solid #CFCFCF",
+              borderRadius: "0 6px 6px 0",
+              height: "51px",
+              width: "50px",
+            }}
+          >
+            {" "}
+            <MdOutlineFlag style={{ fontSize: "25px" }} />{" "}
           </Button>
         </ButtonGroup>
       </div>
-      <div style={{ margin: '4%' }}>
+      <div style={{ margin: "4%" }}>
         <div>
-          <h3 style={{ color: '#6739B7' }}><strong>{nftData.nftName}</strong></h3>
+          <h3 style={{ color: "#6739B7" }}>
+            <strong>{nftData.nftName}</strong>
+          </h3>
         </div>
         <div class="text-left my-4">
           <strong>~&nbsp; "</strong>
-          <span style={{ color: "#6739B7" }}><i>{nftData.nftDescription}</i></span>{" "}
+          <span style={{ color: "#6739B7" }}>
+            <i>{nftData.nftDescription}</i>
+          </span>{" "}
           <strong> "</strong>
-
         </div>
         <div>
           <div className="accordion" id="accordionPanelsStayOpenExample">
@@ -156,7 +159,7 @@ const Container2 = ({ nftData }) => {
                   <br />
                   <div
                     style={{
-                      fontSize: '32px',
+                      fontSize: "32px",
                     }}
                   >
                     <Image
@@ -166,16 +169,16 @@ const Container2 = ({ nftData }) => {
                     ></Image>
                     <span
                       className="ml-2"
-                      style={{ fontSize: '23px', fontWeight: 500 }}
+                      style={{ fontSize: "23px", fontWeight: 500 }}
                     >
                       39.99
                     </span>
                     <span
                       className="ml-1"
                       style={{
-                        fontSize: '15px',
+                        fontSize: "15px",
                         fontWeight: 400,
-                        color: '#707A83',
+                        color: "#707A83",
                       }}
                     >
                       ($39.95)
@@ -185,16 +188,16 @@ const Container2 = ({ nftData }) => {
                   <br />
                   <Button
                     style={{
-                      width: '50%',
-                      height: '42px',
-                      backgroundColor: '#6739B7',
-                      fontSize: '16px',
+                      width: "50%",
+                      height: "42px",
+                      backgroundColor: "#6739B7",
+                      fontSize: "16px",
                       fontWeight: 500,
                     }}
                     onClick={() => {
                       // console.log(nftData._id)
                       // console.log(props)
-                      submitHandler(nftData._id)
+                      submitHandler(nftData._id);
                     }}
                   >
                     Place Bid
@@ -276,7 +279,7 @@ const Container2 = ({ nftData }) => {
                 aria-labelledby="panelsStayOpen-headingThreeThree"
               >
                 <div className="accordion-body">
-                  <table className="table" style={{ overflowX: 'auto' }}>
+                  <table className="table" style={{ overflowX: "auto" }}>
                     <thead>
                       <tr>
                         <th scope="col">Price</th>
@@ -341,7 +344,7 @@ const Container2 = ({ nftData }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Container2
+export default Container2;

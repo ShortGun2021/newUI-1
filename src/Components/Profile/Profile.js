@@ -9,6 +9,7 @@ import Image from "react-bootstrap/Image";
 import { FaDiscord } from "react-icons/fa";
 import { Spinner } from "react-bootstrap";
 import NFTNavbar from "../Homepage/NFTNavbar";
+import {useNavigate} from "react-router-dom"
 import Footer from "../Homepage/Footer";
 
 import {
@@ -18,7 +19,7 @@ import {
   BsArrowDownRight,
 } from "react-icons/bs";
 import { ButtonGroup, Button } from "react-bootstrap";
-import { MdFavorite } from "react-icons/md";
+import { MdFavorite, MdSettings } from "react-icons/md";
 import { AiFillFormatPainter, AiOutlineFileDone } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import("../Styles/ProfilePageStyles/profile.css");
@@ -32,6 +33,7 @@ const profile = {
 };
 
 function Profile() {
+  const navigate = useNavigate();
   const Btns = {
     Collected: Profile_collected,
     Activity: Profile_activity,
@@ -45,6 +47,7 @@ function Profile() {
   let loadingCount = 0;
   const [loadings, setloadings] = useState(0);
   return (
+    
     <>
       {loadings !== 1 ? (
         <div
@@ -119,6 +122,14 @@ function Profile() {
                   style={{ display: "inline-block", width: "30px" }}
                 >
                   <BsFillShareFill style={{ color: "black" }} />
+                </Button>
+                <Button
+                  variant="link"
+                  className="shadow-none"
+                  style={{ display: "inline-block", width: "40px" }}
+                  onClick={()=>navigate('/settings')}
+                >
+                  <MdSettings style={{ color: "black" }} />
                 </Button>
               </div>
             </div>

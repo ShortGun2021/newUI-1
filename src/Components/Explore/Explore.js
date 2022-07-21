@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   ButtonGroup,
@@ -19,7 +19,7 @@ import "../Styles/ExplorePageStyles/explore.css";
 const { REACT_APP_SERVER_URL } = process.env;
 
 
-let navigate
+let navigate;
 const Cards = ({ nftData }) => {
   // console.log(nftData);
   return (
@@ -27,18 +27,15 @@ const Cards = ({ nftData }) => {
       <Card
         className="header-card"
         onClick={() => {
-          navigate('/nftDetails', {
+          navigate("/nftDetails", {
             state: {
-              nftData: nftData
+              nftData: nftData,
             },
-          })
+          });
         }}
       >
         {/* <Card.Img variant="top" src={card.image} /> nftData && nftData[0].nftImgBase64 */}
-        <Card.Img
-          variant="top"
-          src={nftData.nftImageUrl}
-        />
+        <Card.Img variant="top" src={nftData.nftImageUrl} />
         <Card.Body>
           <Card.Title>
             <h5>
@@ -48,30 +45,31 @@ const Cards = ({ nftData }) => {
                 src={nftData.nftImageUrl}
                 height="35"
                 width="35"
-              ></Image>{' '}
+              ></Image>{" "}
               <span className="card-nft-name">{nftData.nftName}</span>
             </h5>
-            <div className="row text-muted" style={{ fontSize: "12px" }
-
-            }>
-              {' '}
+            <div className="row text-muted" style={{ fontSize: "12px" }}>
+              {" "}
               <em className="">
-                ~ "{nftData.nftDescription?.substring(0, 100)}"<span className="mx-2 text-dark">....read more</span>
+                ~ "{nftData.nftDescription?.substring(0, 100)}"
+                <span className="mx-2 text-dark">....read more</span>
               </em>
             </div>
-
-
-
           </Card.Title>
-          <Button className="card-checkout-btn mt-3 btn-sm">Checkout NFT</Button>
+          <Button className="card-checkout-btn mt-3 btn-sm">
+            Checkout NFT
+          </Button>
           <button className="card-goinfo-btn mt-3 text-success font-weight-bold btn-sm">
-            {/* <GoInfo /> */}<span calsssName="">+{Math.floor(Math.random() * (30000 - 1)) / 100}%</span>
+            {/* <GoInfo /> */}
+            <span calsssName="">
+              +{Math.floor(Math.random() * (30000 - 1)) / 100}%
+            </span>
           </button>
         </Card.Body>
       </Card>
-    </Col >
-  )
-}
+    </Col>
+  );
+};
 
 function Explore() {
   navigate = useNavigate();
@@ -79,8 +77,8 @@ function Explore() {
   const [nftData, setNftData] = useState([]);
   const [isLoading, setisLoading] = useState(false);
 
-  console.log(Btnname);
-  console.log(nftData);
+  // console.log(Btnname);
+  // console.log(nftData);
   const fetchNtfs = async () => {
     setisLoading(true);
     const res = await axios.get(
@@ -289,19 +287,13 @@ function Explore() {
               <Row>
                 {nftData.map((card, index) => {
                   if (Btnname === "All Categories") {
-                    return (
-                      <Cards key={index} nftData={nftData[index]} />
-                    );
-                  }
-                  else {
+                    return <Cards key={index} nftData={nftData[index]} />;
+                  } else {
                     if (Btnname === nftData[index].nftCategory) {
-                      return (
-                        <Cards key={index} nftData={nftData[index]} />
-                      );
+                      return <Cards key={index} nftData={nftData[index]} />;
                     }
                   }
                 })}
-
               </Row>
             </Container>
           )}

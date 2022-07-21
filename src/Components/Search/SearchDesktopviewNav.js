@@ -10,9 +10,8 @@ import {
 import { Link } from "react-router-dom";
 
 import { MdPerson } from "react-icons/md";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
-import WalletDetails from "../PhantomWallet/WalletDetails.tsx";
+import WalletDetails from "../PhantomWallet/WalletDetails.js";
 require("@solana/wallet-adapter-react-ui/styles.css");
 import("../Styles/HomePageStyles/NFTNavbar.css");
 
@@ -131,7 +130,6 @@ function DesktopviewNav() {
                   </Button>
                 </Link>
                 <WalletDetails />
-                <WalletMultiButton />
               </Navbar.Collapse>
             </div>
           </div>

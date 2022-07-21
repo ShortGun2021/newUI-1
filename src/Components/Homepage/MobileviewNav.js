@@ -3,7 +3,7 @@ import React from "react";
 import { Button, Navbar, Container, Nav } from "react-bootstrap";
 import { MdPerson } from "react-icons/md";
 
-import WalletDetails from "../PhantomWallet/WalletDetails.tsx";
+import WalletDetails from "../PhantomWallet/WalletDetails.js";
 import { useNavigate } from "react-router-dom";
 
 import { AiOutlineSearch } from "react-icons/ai";
@@ -91,7 +91,7 @@ function Mobileviewnav() {
                   Favourites
                 </Nav.Link>
               </Link>
-              <Link style={{ textDecoration: "none" }} to="/collections">
+              <Link style={{ textDecoration: "none" }} to="/">
                 <Link to="/profile">
                   <Button className="navItems" variant="light">
                     <MdPerson style={{ fontSize: "25px" }} />

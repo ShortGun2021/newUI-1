@@ -5,6 +5,9 @@
 .card-checkout-btn{
     background:#6739B7; font-weight:600
 }
+.card-checkout-btn:hover{
+    background-color: #552f97;
+}
 .card-goinfo-btn{
     float:right; background:white; border:0px solid white
 }

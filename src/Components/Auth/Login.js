@@ -101,6 +101,7 @@ const Login = () => {
           >
             <TextField
               margin="normal"
+              autoFocus
               required
               fullWidth
               type={"text"}
