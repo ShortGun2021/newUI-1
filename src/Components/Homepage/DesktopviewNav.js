@@ -72,7 +72,7 @@ function DesktopviewNav() {
                     className="me-2 nft-nav-formcontrol"
                     aria-label="Search"
                     style={{
-                      width: "310px",
+                      width: "610px",
                       border: "1px solid #3D3D3D",
                       borderRadius: "9px",
                       textDecoration: "underline white",
