@@ -21,6 +21,7 @@ import { InputAdornment } from "@mui/material";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { useWallet } from "@solana/wallet-adapter-react";
+const { REACT_APP_SERVER_URL } = process.env;
 
 const theme = createTheme();
 
@@ -40,6 +41,7 @@ const Register = () => {
 
     const config = {
       header: {
+        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
     };
@@ -47,8 +49,8 @@ const Register = () => {
       // console.log(email,password);
       axios
         .post(
-          "https://shortgun-backend.herokuapp.com/user/register",
-          // "http://localhost:5000/user/register",
+          // "https://shortgun-backend.herokuapp.com/user/register",
+          `${REACT_APP_SERVER_URL}/user/register`,
           {
             username,
             email,

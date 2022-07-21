@@ -19,6 +19,7 @@ import '../Styles/ProfilePageStyles/profileCollected.css'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 require('bootstrap/dist/css/bootstrap.min.css')
+const { REACT_APP_SERVER_URL } = process.env;
 
 let navigate;
 
@@ -85,7 +86,7 @@ export default function Profile_collected() {
   const fetchNtfs = async () => {
     setisLoading(true);
     const res = await axios.get(
-      "https://shortgun-backend.herokuapp.com/nft/getNFTs"
+      `${REACT_APP_SERVER_URL}/nft/getNFTs`
     );
     // setNftData(res.data);
 

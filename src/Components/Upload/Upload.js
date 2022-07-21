@@ -17,6 +17,7 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { useWallet } from "@solana/wallet-adapter-react";
 import axios from "axios";
+const { REACT_APP_SERVER_URL } = process.env;
 
 const Upload = () => {
   const { publicKey } = useWallet();
@@ -217,8 +218,8 @@ const Upload = () => {
 
       axios
         .post(
-          "https://shortgun-backend.herokuapp.com/nft/createNFT",
-          // "http://localhost:5000/nft/createNFT",
+          // "https://shortgun-backend.herokuapp.com/nft/createNFT",
+          `${REACT_APP_SERVER_URL}/nft/createNFT`,
           {
             nftUrl: metaDataUrl,
             nftImageUrl: imageUrl,

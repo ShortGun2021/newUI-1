@@ -16,6 +16,8 @@ import {
 } from "react-bootstrap";
 import NFTNavbar from "../Homepage/NFTNavbar";
 import "../Styles/ExplorePageStyles/explore.css";
+const { REACT_APP_SERVER_URL } = process.env;
+
 
 let navigate
 const Cards = ({ nftData }) => {
@@ -82,7 +84,7 @@ function Explore() {
   const fetchNtfs = async () => {
     setisLoading(true);
     const res = await axios.get(
-      "https://shortgun-backend.herokuapp.com/nft/getNFTs"
+      `${REACT_APP_SERVER_URL}/nft/getNFTs`
     );
     setNftData(res.data);
 
