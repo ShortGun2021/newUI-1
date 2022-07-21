@@ -47,7 +47,7 @@ function DesktopviewNav() {
                 src="https://static.wixstatic.com/media/ccc269_fef35fd3445e47099ff2ba432afd2ead~mv2.png/v1/fill/w_60,h_50,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Original_edited_edited_edited.png"
                 alt=""
               />
-              <span
+              {/* <span
                 style={{
                   fontWeight: "500",
                   fontStyle: "Ubuntu",
@@ -56,7 +56,7 @@ function DesktopviewNav() {
                 }}
               >
                 SHORTGUN
-              </span>
+              </span> */}
             </Navbar.Brand>
           </Link>
           {/* LOGO */}
@@ -81,7 +81,7 @@ function DesktopviewNav() {
                     className="me-2 nft-nav-formcontrol"
                     aria-label="Search"
                     style={{
-                      width: "310px",
+                      width: "610px",
                       border: "1px solid #3D3D3D",
                       borderRadius: "9px",
                       textDecoration: "underline white",
